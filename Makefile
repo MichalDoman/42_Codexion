@@ -1,8 +1,11 @@
 NAME=codexion
-CC=CC
+CC=cc
 FLAGS=-Wall -Wextra -Werror -pthread
 
-SRC = 
+SRC =	main.c \
+		utils/atol.c \
+		parsing/validation.c
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

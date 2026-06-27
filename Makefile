@@ -3,8 +3,9 @@ CC=cc
 FLAGS=-Wall -Wextra -Werror -pthread
 
 SRC =	main.c \
-		utils/atol.c \
-		parsing/validation.c
+		utils/print_config.c \
+		parsing/validation.c \
+		parsing/parsing.c
 
 OBJ = $(SRC:.c=.o)
 

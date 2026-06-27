@@ -23,6 +23,9 @@ typedef struct s_config
 } t_config;
 
 // parsing:
-int     validate_arguments(int argc, char **args);
+int         validate_arguments(int argc, char **args);
+t_config    *parse_arguments(int argc, char **argv);
 
+//utils:
+void	    print_config(t_config *config);
 #endif

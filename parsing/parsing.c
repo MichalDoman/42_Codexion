@@ -3,7 +3,7 @@
 
 int	parse_arguments(int argc, char **argv, t_config *config)
 {
-	if (!config || !validate_arguments(argc, argv))
+	if (!config)
 		return (0);
 	config->number_of_coders = atoi(argv[1]);
 	config->time_to_burnout = atoi(argv[2]);

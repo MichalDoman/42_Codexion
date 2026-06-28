@@ -17,6 +17,5 @@ t_config *parse_arguments(int argc, char **argv, t_config **config)
     (*config)->number_of_compiles_required = atoi(argv[6]);
     (*config)->dongle_cooldown = atoi(argv[7]);
     (*config)->scheduler = argv[8];
-    return *config;
 }
 

@@ -17,10 +17,13 @@ typedef struct s_config
 typedef struct s_coder
 {
     int id;
+    int l_dongle_id;
+    int r_dongle_id;
 } t_coder;
 
 typedef struct s_dongle
 {
+    int id;
     int coder_id;
 } t_dongle;
 

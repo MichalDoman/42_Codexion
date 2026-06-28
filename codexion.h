@@ -16,7 +16,11 @@
 int         validate_arguments(int argc, char **args);
 t_config    *parse_arguments(int argc, char **argv, t_config **config);
 
+// simulation:
+void        init_simulation(t_sim **sim, t_config *config);
+
 // utils/debugging:
 void	    print_config(t_config *config);
+void        print_sim(t_sim *sim);
 
 #endif

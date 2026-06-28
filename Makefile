@@ -5,7 +5,9 @@ FLAGS=-Wall -Wextra -Werror -pthread
 SRC =	main.c \
 		parsing/validation.c \
 		parsing/parsing.c \
+		simulation/init_simulation.c \
 		utils/debugging/print_config.c \
+		utils/debugging/print_sim.c \
 
 OBJ = $(SRC:.c=.o)
 

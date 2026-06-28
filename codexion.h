@@ -9,23 +9,14 @@
 # include <pthread.h>
 # include <string.h>
 
-typedef struct s_config
-{
-    int     number_of_coders;
-    int     time_to_burnout;
-    int     time_to_compile;
-    int     time_to_debug;
-    int     time_to_refactor;
-    int     number_of_compiles_required;
-    int     dongle_cooldown;
-    char    *scheduler;
+# include "utils/codexion_types.h"
 
-} t_config;
 
 // parsing:
 int         validate_arguments(int argc, char **args);
-t_config    *parse_arguments(int argc, char **argv);
+t_config    *parse_arguments(int argc, char **argv, t_config **config);
 
-//utils:
+// utils/debugging:
 void	    print_config(t_config *config);
+
 #endif

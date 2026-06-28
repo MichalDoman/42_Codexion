@@ -1,4 +1,4 @@
-#include "../codexion.h"
+#include "../../codexion.h"
 
 void	print_config(t_config *config)
 {

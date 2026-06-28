@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 
     config = NULL;
     if (validate_arguments(argc, argv))
-        config = parse_arguments(argc, argv);
+        parse_arguments(argc, argv, &config);
         print_config(config);
 
     return 0;

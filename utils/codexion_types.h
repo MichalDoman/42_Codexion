@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/06/29 10:41:14 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/06/29 18:51:08 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_coder
 	int	id;
 	int	l_dongle_id;
 	int	r_dongle_id;
+	
 }	t_coder;
 
 typedef struct s_dongle

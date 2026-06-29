@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/06/29 10:34:22 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/06/29 18:50:07 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static int	init_coders(t_coder **coders, int number_of_coders)
 	while (i < number_of_coders)
 	{
 		(*coders)[i].id = i + 1;
-		(*coders)[i].l_dongle_id = 0;
-		(*coders)[i].r_dongle_id = 0;
+		(*coders)[i].l_dongle_id = i + 1;
+		(*coders)[i].r_dongle_id = ((i + 1) % number_of_coders) + 1;
 		i++;
 	}
 	return (1);
@@ -40,7 +40,7 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	i = 0;
 	while (i < number_of_dongles)
 	{
-		(*dongles)[i].id = i;
+		(*dongles)[i].id = i + 1;
 		(*dongles)[i].coder_id = 0;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:27:16 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/06/29 10:32:55 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/06/29 10:42:57 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	print_sim(t_sim *sim)
 		return ;
 	}
 	printf("=== SIM DEBUG ===\n");
-	printf("start_time: %ld\n", sim->start_time);
 	print_config(&sim->config);
 	print_coders(sim->coders, sim->config.number_of_coders);
 	print_dongles(sim->dongles, sim->config.number_of_coders);
+	printf("start_time: %ld\n\n", sim->start_time);
 	printf("=================\n");
 }

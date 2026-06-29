@@ -1,63 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_sim.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/29 10:27:16 by mdomansk          #+#    #+#             */
+/*   Updated: 2026/06/29 10:32:55 by mdomansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../codexion.h"
 
-
-static void    print_coders(t_coder *coders, int number_of_coders)
+static void	print_coders(t_coder *coders, int number_of_coders)
 {
-    int i;
+	int	i;
 
-    printf("\n--- CODERS ---\n");
-    if (!coders)
-    {
-        printf("coders: NULL\n");
-        return;
-    }
-    i = 0;
-    while (i < number_of_coders)
-    {
-        printf("coder[%d]: id=%d, l_dongle_id=%d, r_dongle_id=%d\n",
-            i,
-            coders[i].id,
-            coders[i].l_dongle_id,
-            coders[i].r_dongle_id);
-        i++;
-    }
+	printf("\n--- CODERS ---\n");
+	if (!coders)
+	{
+		printf("coders: NULL\n");
+		return ;
+	}
+	i = 0;
+	while (i < number_of_coders)
+	{
+		printf("coder[%d]: id=%d, l_dongle_id=%d, r_dongle_id=%d\n",
+			i,
+			coders[i].id,
+			coders[i].l_dongle_id,
+			coders[i].r_dongle_id);
+		i++;
+	}
 }
 
-static void    print_dongles(t_dongle *dongles, int number_of_dongles)
+static void	print_dongles(t_dongle *dongles, int number_of_dongles)
 {
-    int i;
+	int	i;
 
-    printf("\n--- DONGLES ---\n");
-    if (!dongles)
-    {
-        printf("dongles: NULL\n");
-        return;
-    }
-    i = 0;
-    while (i < number_of_dongles)
-    {
-        printf("dongle[%d]: id=%d, coder_id=%d\n",
-            i,
-            dongles[i].id,
-            dongles[i].coder_id);
-        i++;
-    }
+	printf("\n--- DONGLES ---\n");
+	if (!dongles)
+	{
+		printf("dongles: NULL\n");
+		return ;
+	}
+	i = 0;
+	while (i < number_of_dongles)
+	{
+		printf("dongle[%d]: id=%d, coder_id=%d\n",
+			i,
+			dongles[i].id,
+			dongles[i].coder_id);
+		i++;
+	}
 }
 
-void    print_sim(t_sim *sim)
+void	print_sim(t_sim *sim)
 {
-    if (!sim)
-    {
-        printf("sim: NULL\n");
-        return;
-    }
-
-    printf("=== SIM DEBUG ===\n");
-    printf("start_time: %ld\n", sim->start_time);
-
-    print_config(&sim->config);
-    print_coders(sim->coders, sim->config.number_of_coders);
-    print_dongles(sim->dongles, sim->config.number_of_coders);
-
-    printf("=================\n");
+	if (!sim)
+	{
+		printf("sim: NULL\n");
+		return ;
+	}
+	printf("=== SIM DEBUG ===\n");
+	printf("start_time: %ld\n", sim->start_time);
+	print_config(&sim->config);
+	print_coders(sim->coders, sim->config.number_of_coders);
+	print_dongles(sim->dongles, sim->config.number_of_coders);
+	printf("=================\n");
 }

@@ -21,13 +21,13 @@
 # include <pthread.h>
 # include <string.h>
 
-# include "utils/codexion_types.h"
+# include "codexion_types.h"
 
 // PARSING ----------------------------------------------------------
 // parsing/validation.c:
 int			validate_arguments(int argc, char **args);
 // parsing/parsing.c:
-int			parse_arguments(int argc, char **argv, t_config *config);
+int			parse_arguments(char **argv, t_config *config);
 
 // SIMULATION -------------------------------------------------------
 // simulation/init_simulation.c:

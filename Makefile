@@ -1,11 +1,11 @@
 NAME=codexion
 CC=cc
-FLAGS=-Wall -Wextra -Werror -pthread
+CFLAGS=-Wall -Wextra -Werror -pthread -Iinclude
 
 SRC =	main.c \
-		parsing/validation.c \
-		parsing/parsing.c \
-		simulation/init_simulation.c \
+		core/parsing/validation.c \
+		core/parsing/parsing.c \
+		core/simulation/init_simulation.c \
 		utils/debugging/print_config.c \
 		utils/debugging/print_sim.c \
 

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../codexion.h"
+#include "codexion.h"
 
-int	parse_arguments(int argc, char **argv, t_config *config)
+int	parse_arguments(char **argv, t_config *config)
 {
 	if (!config)
 		return (0);

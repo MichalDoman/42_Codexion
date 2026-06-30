@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../codexion.h"
+#include "codexion.h"
 
 static int	init_coders(t_coder **coders, int number_of_coders)
 {

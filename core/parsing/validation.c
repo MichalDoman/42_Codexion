@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../codexion.h"
+#include "codexion.h"
 
 static int	validate_integer(char *arg)
 {

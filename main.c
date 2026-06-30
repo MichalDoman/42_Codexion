@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (!validate_arguments(argc, argv))
 		return (1);
-	if (!parse_arguments(argc, argv, &config))
+	if (!parse_arguments(argv, &config))
 		return (1);
 	if (!init_simulation(&sim, &config))
 		return (1);

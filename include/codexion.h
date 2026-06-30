@@ -22,6 +22,7 @@
 # include <string.h>
 
 # include "codexion_types.h"
+# include "heap.h"
 
 // PARSING ----------------------------------------------------------
 // parsing/validation.c:

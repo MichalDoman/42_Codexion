@@ -6,12 +6,14 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 11:15:02 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:31:09 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_TYPES_H
 # define CODEXION_TYPES_H
+
+# include <pthread.h>
 
 typedef struct s_config
 {
@@ -25,18 +27,19 @@ typedef struct s_config
 	char	*scheduler;
 }	t_config;
 
-typedef struct s_coder
-{
-	int	id;
-	int	l_dongle_id;
-	int	r_dongle_id;
-}	t_coder;
-
 typedef struct s_dongle
 {
 	int	id;
 	int	coder_id;
 }	t_dongle;
+
+typedef struct s_coder
+{
+	int			id;
+	pthread_t	thread;
+	t_dongle	left_dongle;
+	t_dongle	right_dongle;
+}	t_coder;
 
 typedef struct s_sim
 {

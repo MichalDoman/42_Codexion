@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   simulation_core.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/29 10:20:34 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 16:30:35 by mdomansk         ###   ########.fr       */
+/*   Created: 2026/07/01 15:44:07 by mdomansk          #+#    #+#             */
+/*   Updated: 2026/07/01 16:31:22 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
+static void	*coder_routine(void *arg)
 {
-	t_config	config;
-	t_sim		sim;
 
-	if (!validate_arguments(argc, argv))
-		return (1);
-	if (!parse_arguments(argv, &config))
-		return (1);
-	if (!init_simulation(&sim, &config))
-		return (1);
-	print_sim(&sim);
-	simulate(&sim);
-	return (0);
+}
+
+void	simulate(t_sim *sim)
+{
+	int			i;
+	t_coder		coder;
+
+	i = 0;
+	while (i < sim->config.number_of_coders)
+	{
+		coder = sim->coders[i];
+		pthread_create(&(coder->thread), NULL, coder_routine, &coder)
+		i++;
+	}
+
+	i = 0;
+	while (i < sim->config.number_of_coders)
+	{
+		pthread_join((sim->coders[i]).thread, NULL);
+		i++;
+	}
+	// pthread_join(monitor_thread, NULL);
+	// destroy_stuff()
 }

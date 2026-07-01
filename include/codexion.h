@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 10:09:44 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:30:14 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ int			parse_arguments(char **argv, t_config *config);
 // SIMULATION -------------------------------------------------------
 // core/simulation/init_simulation.c:
 int			init_simulation(t_sim *sim, t_config *config);
+// core/simulation/simulation_core.c:
+void		simulate(t_sim *sim);
 
-// UTILS ------------------------------------------------------------
+// UTILS -----------------------------------------------------------------------
 // utils/debugging:
 void		print_config(t_config *config);
 void		print_sim(t_sim *sim);

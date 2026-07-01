@@ -6,17 +6,17 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 10:03:31 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 11:38:39 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/01 16:30:58 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/heap.h"
+#include "heap.h"
 
 static int	heap_compare(t_heap_item *a, t_heap_item *b)
 {
 	if (a->value > b->value)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 static void	heap_swap(t_heap_item *a, t_heap_item *b)
@@ -65,9 +65,9 @@ void	heap_push(t_heap *heap, t_heap_item *item)
 	while (i > 0)
 	{
 		parent_id = (i - 1) / 2;
-		if (!heap_compare(heap->items[i], heap->items[parent_id]))
+		if (!heap_compare(&(heap->items[i]), &(heap->items[parent_id])))
 			return ;
-		heap_swap(heap->items[i], heap->items[parent_id]);
+		heap_swap(&(heap->items[i]), &(heap->items[parent_id]));
 		i = parent_id;
 	}
 }

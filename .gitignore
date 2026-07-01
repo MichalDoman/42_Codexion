@@ -1,3 +1,4 @@
 *.o
 codexion
 .vscode
+heap_test.c

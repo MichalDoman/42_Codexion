@@ -6,12 +6,14 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/06/29 10:39:31 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/01 10:09:44 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CODEXION_H
 # define CODEXION_H
+
+# define MAX_HEAP_SIZE 5
 
 # include <limits.h>
 # include <unistd.h>
@@ -25,13 +27,13 @@
 # include "heap.h"
 
 // PARSING ----------------------------------------------------------
-// parsing/validation.c:
+// core/parsing/validation.c:
 int			validate_arguments(int argc, char **args);
-// parsing/parsing.c:
+// core/parsing/parsing.c:
 int			parse_arguments(char **argv, t_config *config);
 
 // SIMULATION -------------------------------------------------------
-// simulation/init_simulation.c:
+// core/simulation/init_simulation.c:
 int			init_simulation(t_sim *sim, t_config *config);
 
 // UTILS ------------------------------------------------------------

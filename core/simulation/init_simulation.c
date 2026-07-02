@@ -12,24 +12,6 @@
 
 #include "codexion.h"
 
-static int	init_coders(t_coder **coders, int number_of_coders)
-{
-	int	i;
-
-	*coders = malloc(sizeof(t_coder) * number_of_coders);
-	if (!*coders)
-		return (0);
-	i = 0;
-	while (i < number_of_coders)
-	{
-		(*coders)[i].id = i + 1;
-		(*coders)[i].l_dongle_id = i + 1;
-		(*coders)[i].r_dongle_id = ((i + 1) % number_of_coders) + 1;
-		i++;
-	}
-	return (1);
-}
-
 static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 {
 	int	i;
@@ -42,6 +24,26 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	{
 		(*dongles)[i].id = i + 1;
 		(*dongles)[i].coder_id = 0;
+		i++;
+	}
+	return (1);
+}
+
+static int	init_coders(t_coder **coders, int number_of_coders)
+{
+	int	i;
+
+	*coders = malloc(sizeof(t_coder) * number_of_coders);
+	if (!*coders)
+		return (0);
+	i = 0;
+	while (i < number_of_coders)
+	{
+		(*coders)[i].id = i + 1;
+		(*coders)[i].compile_count = 0;
+		(*coders)[i].last_compile_start = 0;
+		(*coders)[i].left_dongle = &sim->dongles[i];
+		(*coders)[i].right_dongle = &sim->dongles[(i + 1) % number_of_coders];
 		i++;
 	}
 	return (1);

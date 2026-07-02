@@ -29,24 +29,34 @@ typedef struct s_config
 
 typedef struct s_dongle
 {
-	int	id;
-	int	coder_id;
+	int				id;
+	int				coder_id;
+	long			cooldown_until;
+	t_heap			*queue;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef struct s_coder
 {
-	int			id;
-	pthread_t	thread;
-	t_dongle	left_dongle;
-	t_dongle	right_dongle;
+	int				id;
+	int				compile_count;
+	long			last_compile_start;
+	pthread_t		thread;
+	t_dongle		*left_dongle;
+	t_dongle		*right_dongle;
 }	t_coder;
 
 typedef struct s_sim
 {
-	t_config	config;
-	t_coder		*coders;
-	t_dongle	*dongles;
-	long		start_time;
+	t_config		config;
+	t_coder			*coders;
+	t_dongle		*dongles;
+	pthread_t		monitor_thread;
+	pthread_mutex_t	log_mutex;
+	pthread_mutex_t	state_mutex;
+	int				should_stop;
+	long			start_time;
 }	t_sim;
 
 #endif

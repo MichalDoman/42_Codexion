@@ -31,6 +31,11 @@ typedef struct s_heap
 // core/heap/heap.c
 t_heap	*heap_init(int max_size);
 void	heap_push(t_heap *heap, t_heap_item *a);
+int		heap_remove(t_heap *heap, t_heap_item *item);
 void	heap_free(t_heap *heap);
+
+// core/heap/heap_utils.c
+int		heap_compare(t_heap_item *a, t_heap_item *b);
+void	heap_swap(t_heap_item *a, t_heap_item *b);
 
 #endif

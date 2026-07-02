@@ -6,7 +6,10 @@ SRC =	main.c \
 		core/parsing/validation.c \
 		core/parsing/parsing.c \
 		core/simulation/init_simulation.c \
+		core/simulation/simulation_core.c \
+		core/simulation/threads.c \
 		core/heap/heap.c \
+		core/heap/heap_utils.c \
 		utils/debugging/print_config.c \
 		utils/debugging/print_sim.c \
 

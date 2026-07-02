@@ -19,23 +19,8 @@ static void	*coder_routine(void *arg)
 
 void	simulate(t_sim *sim)
 {
-	int			i;
-	t_coder		coder;
+	create_threads(sim);
 
-	i = 0;
-	while (i < sim->config.number_of_coders)
-	{
-		coder = sim->coders[i];
-		pthread_create(&(coder->thread), NULL, coder_routine, &coder)
-		i++;
-	}
-
-	i = 0;
-	while (i < sim->config.number_of_coders)
-	{
-		pthread_join((sim->coders[i]).thread, NULL);
-		i++;
-	}
-	// pthread_join(monitor_thread, NULL);
+	join_threads(sim);
 	// destroy_stuff()
 }

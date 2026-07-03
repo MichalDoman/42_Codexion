@@ -15,17 +15,23 @@ void	create_threads(t_sim *sim)
 		);
 		i++;
 	}
+	pthread_create(
+		&(sim->monitor_thread),
+		NULL,
+		monitor_routine,
+		sim
+	)
 }
 
 void	join_threads(t_sim *sim)
 {
 	int		i;
 
+	pthread_join(sim->monitor_thread, NULL);
 	i = 0;
 	while (i < sim->config.number_of_coders)
 	{
 		pthread_join((sim->coders[i]).thread, NULL);
 		i++;
 	}
-	// pthread_join(monitor_thread, NULL);
 }

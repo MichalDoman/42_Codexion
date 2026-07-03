@@ -12,9 +12,14 @@
 
 #include "codexion.h"
 
-static void	*coder_routine(void *arg)
+void	*coder_routine(void *arg)
 {
 
+}
+
+void	*monitor_routine(void *arg)
+{
+	
 }
 
 void	simulate(t_sim *sim)

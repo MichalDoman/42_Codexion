@@ -12,7 +12,7 @@
 
 #include "heap.h"
 
-t_heap	*heap_init(int max_size)
+t_heap	*heap_init(int max_size, int flag)
 {
 	t_heap		*heap;
 
@@ -45,9 +45,11 @@ void	heap_push(t_heap *heap, t_heap_item *item)
 	while (i > 0)
 	{
 		parent_id = (i - 1) / 2;
-		if (!heap_has_higher_priority(
+		if (!heap_compare(
 			&(heap->items[i]),
-			&(heap->items[parent_id])))
+			&(heap->items[parent_id]),
+			heap->flag
+		))
 			return ;
 		heap_swap(&(heap->items[i]), &(heap->items[parent_id]));
 		i = parent_id;
@@ -56,7 +58,14 @@ void	heap_push(t_heap *heap, t_heap_item *item)
 
 int	heap_remove(t_heap *heap, t_heap_item *item)
 {
-	
+	if (heap->size == 0)
+		return (0);
+	*item = heap->items[0];
+	heap->size--;
+	heap->item[0] == heap->items[heap->size];
+	if (heap->size > 0)
+		heap_adjust(heap, 0, heap->flag);
+	return (1);
 }
 
 void	heap_free(t_heap *heap)

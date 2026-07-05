@@ -33,10 +33,18 @@ int			validate_arguments(int argc, char **args);
 int			parse_arguments(char **argv, t_config *config);
 
 // SIMULATION -------------------------------------------------------
-// core/simulation/init_simulation.c:
-int			init_simulation(t_sim *sim, t_config *config);
-// core/simulation/simulation_core.c:
-void		simulate(t_sim *sim);
+// core/simulation/simulation_init.c [5/5]:
+void		set_coders_start_time(t_sim *sim);
+int			sim_init(t_sim *sim, t_config *config);
+// core/simulation/simulation_core.c [4/5]:
+int			sim_is_running(t_sim *sim);
+void		sim_stop(t_sim *sim);
+void		sim_start(t_sim *sim);
+void		sim_cleanup(t_sim *sim);
+// core/simulation/threads.c [2/5]:
+void		create_threads(t_sim *sim);
+void		join_threads(t_sim *sim);
+// core/simulation/coders.c:
 
 // UTILS -----------------------------------------------------------------------
 // utils/debugging:

@@ -24,6 +24,6 @@ int	main(int argc, char **argv)
 	if (!init_simulation(&sim, &config))
 		return (1);
 	print_sim(&sim);
-	simulate(&sim);
+	sim_start(&sim);
 	return (0);
 }

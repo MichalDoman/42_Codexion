@@ -5,9 +5,11 @@ CFLAGS=-Wall -Wextra -Werror -pthread -Iinclude
 SRC =	main.c \
 		core/parsing/validation.c \
 		core/parsing/parsing.c \
-		core/simulation/init_simulation.c \
+		core/simulation/simulation_init.c \
 		core/simulation/simulation_core.c \
+		core/simulation/monitor.c \
 		core/simulation/threads.c \
+		core/simulation/coders.c \
 		core/heap/heap.c \
 		core/heap/heap_utils.c \
 		utils/debugging/print_config.c \

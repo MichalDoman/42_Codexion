@@ -41,10 +41,11 @@ typedef struct s_coder
 {
 	int				id;
 	int				compile_count;
-	long			last_compile_start;
+	long			last_compile_time;
 	pthread_t		thread;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
+	t_sim			*sim; // required for coder_routine()
 }	t_coder;
 
 typedef struct s_sim
@@ -55,7 +56,11 @@ typedef struct s_sim
 	pthread_t		monitor_thread;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	state_mutex;
-	int				should_stop;
+
+	pthread_mutex_t	start_mutex;
+	pthread_cond_t	start_cond;
+	int				is_ready;
+	int				is_running;
 	long			start_time;
 }	t_sim;
 

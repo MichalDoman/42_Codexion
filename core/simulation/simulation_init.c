@@ -29,10 +29,12 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	return (1);
 }
 
-static int	init_coders(t_coder **coders, int number_of_coders)
+static int	init_coders(t_coder **coders, t_sim *sim)
 {
 	int	i;
+	int	number_of_coders;
 
+	number_of_coders = sim->config.number_of_coders;
 	*coders = malloc(sizeof(t_coder) * number_of_coders);
 	if (!*coders)
 		return (0);
@@ -41,27 +43,66 @@ static int	init_coders(t_coder **coders, int number_of_coders)
 	{
 		(*coders)[i].id = i + 1;
 		(*coders)[i].compile_count = 0;
-		(*coders)[i].last_compile_start = 0;
+		(*coders)[i].last_compile_time = sim->start_time;
 		(*coders)[i].left_dongle = &sim->dongles[i];
 		(*coders)[i].right_dongle = &sim->dongles[(i + 1) % number_of_coders];
+		(*coders)[i].sim = sim;
 		i++;
 	}
 	return (1);
 }
 
-int	init_simulation(t_sim *sim, t_config *config)
+void	set_coders_start_time(t_sim *sim)
+{
+	int	i;
+
+	i = 0;
+	while (i < sim->config.number_of_coders)
+	{
+		sim->coders[i].last_compile_time = sim->start_time;
+		i++;
+	}
+}
+
+static int init_mutexes(t_sim *sim)
+{
+	if (pthread_mutex_init(&sim->start_mutex, NULL) != 0)
+		return (0);
+	if (pthread_cond_init(&sim->start_cond, NULL) != 0)
+	{
+		pthread_mutex_destroy(&sim->start_mutex);
+		return (0);
+	}
+	if (pthread_mutex_init(&sim->log_mutex, NULL) != 0)
+	{
+		pthread_cond_destroy(&sim->start_cond);
+		pthread_mutex_destroy(&sim->start_mutex);
+		return (0);
+	}
+	if (pthread_mutex_init(&sim->state_mutex, NULL) != 0)
+	{
+		pthread_mutex_destroy(&sim->log_mutex);
+		pthread_cond_destroy(&sim->start_cond);
+		pthread_mutex_destroy(&sim->start_mutex);
+		return (0);
+	}
+	return (1);
+}
+
+int	sim_init(t_sim *sim, t_config *config)
 {
 	if (!sim || !config)
 		return (0);
 	memset(sim, 0, sizeof(t_sim));
 	sim->config = *config;
-	if (!init_coders(&sim->coders, config->number_of_coders))
+	sim->is_ready = 0;
+	sim->start_time = 0;
+	sim->is_running = 1;
+	if (!init_mutexes(sim))
 		return (0);
 	if (!init_dongles(&sim->dongles, config->number_of_coders))
-	{
-		free(sim->coders);
-		return (0);
-	}
-	sim->start_time = 0;
+		return (sim_cleanup(sim), 0);
+	if (!init_coders(&sim->coders, sim))
+		return (sim_cleanup(sim), 0);
 	return (1);
 }

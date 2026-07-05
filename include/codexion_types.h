@@ -14,6 +14,9 @@
 # define CODEXION_TYPES_H
 
 # include <pthread.h>
+# include "heap.h"
+
+typedef struct s_sim	t_sim;
 
 typedef struct s_config
 {

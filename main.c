@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!parse_arguments(argv, &config))
 		return (1);
-	if (!init_simulation(&sim, &config))
+	if (!sim_init(&sim, &config))
 		return (1);
 	print_sim(&sim);
 	sim_start(&sim);

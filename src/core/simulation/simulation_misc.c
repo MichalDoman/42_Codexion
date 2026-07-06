@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   simulation_misc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 09:56:56 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 11:46:21 by mdomansk         ###   ########.fr       */
+/*   Created: 2026/07/06 13:46:37 by mdomansk          #+#    #+#             */
+/*   Updated: 2026/07/06 13:52:19 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
-
-long	time_get_ms(void)
+void	sim_log(t_sim *sim, int coder_id, char *msg)
 {
-	struct timeval	tv;
-	long			seconds;
-	long			miliseconds;
-	long			microseconds;
+	long	timestamp;
 
-	gettimeofday(&tv, NULL);
-	seconds = (long)tv.tv_sec;
-	microseconds = (long)tv.tv_usec;
-	miliseconds = seconds * 1000 + microseconds / 1000;
-	return miliseconds;
+	pthread_mutex_lock(sim->log_mutex);
+	timestamp = time_get_ms() - sim->start_time;
+	printf("%ld %d %s\n", timestamp, coder_id, msg);	
+	pthread_mutex_unlock(sim->log_mutex);
 }

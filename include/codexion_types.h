@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:32:54 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 11:37:59 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ typedef struct s_sim	t_sim;
 
 typedef struct s_config
 {
-	int		number_of_coders;
-	int		time_to_burnout;
-	int		time_to_compile;
-	int		time_to_debug;
-	int		time_to_refactor;
-	int		number_of_compiles_required;
-	int		dongle_cooldown;
-	char	*scheduler;
+	int			number_of_coders;
+	long		time_to_burnout;
+	long		time_to_compile;
+	long		time_to_debug;
+	long		time_to_refactor;
+	int			number_of_compiles_required;
+	int			dongle_cooldown;
+	char		*scheduler;
 }	t_config;
 
 typedef struct s_dongle

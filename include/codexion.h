@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 11:25:39 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:51:22 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,22 @@ int			parse_arguments(char **argv, t_config *config);
 int			sim_init(t_sim *sim, t_config *config);
 // src/core/simulation/simulation_core.c [5/5]:
 int			sim_is_running(t_sim *sim);
-void		sim_stop(t_sim *sim);
 void		sim_start(t_sim *sim);
+void		sim_stop(t_sim *sim);
 void		sim_cleanup(t_sim *sim);
+// src/core/simulation/simulation_misc.c [1/5]:
+void		sim_log(t_sim *sim, int coder_id, char *msg);
 // src/core/threads.c [3/5]:
 void		thread_wait_for_sim_ready(t_sim *sim);
 void		thread_create_multi(t_sim *sim);
 void		thread_join_multi(t_sim *sim);
 // src/core/monitor.c [3/5]:
 void		*monitor_routine(void *arg);
-// src/core/coders.c [2/5]:
+// src/core/coder.c [2/5]:
 void		coder_set_start_time_multi(t_sim *sim);
 void		*coder_routine(void *arg);
 // src/core/time.c [1/5]:
-long		get_time_ms(void);
+long		time_get_ms(void);
 
 // UTILS -----------------------------------------------------------------------
 // utils/debugging:

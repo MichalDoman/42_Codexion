@@ -7,9 +7,10 @@ SRC =	main.c \
 		src/parsing/parsing.c \
 		src/core/simulation/simulation_init.c \
 		src/core/simulation/simulation_core.c \
+		src/core/simulation/simulation_misc.c \
 		src/core/threads.c \
 		src/core/monitor.c \
-		src/core/coders.c \
+		src/core/coder.c \
 		src/core/time.c \
 		src/heap/heap.c \
 		src/heap/heap_utils.c \

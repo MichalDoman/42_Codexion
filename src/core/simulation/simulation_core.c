@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 15:44:07 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 11:09:55 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:15:10 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,11 @@ int	sim_is_running(t_sim *sim)
 static void	sim_set_ready(t_sim *sim)
 {
 	pthread_mutex_lock(&sim->start_mutex);
-	sim->start_time = get_time_ms();
+	sim->start_time = time_get_ms();
 	coder_set_start_time_multi(sim);
 	sim->is_ready = 1;
 	pthread_cond_broadcast(&sim->start_cond);
 	pthread_mutex_unlock(&sim->start_mutex);
-}
-
-void	sim_stop(t_sim *sim)
-{
-	pthread_mutex_lock(&sim->sim_mutex);
-	sim->is_running = 0;
-	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
 void	sim_start(t_sim *sim)
@@ -45,6 +38,13 @@ void	sim_start(t_sim *sim)
 	sim_set_ready(sim);
 	thread_join_multi(sim);
 	sim_cleanup(sim);
+}
+
+void	sim_stop(t_sim *sim)
+{
+	pthread_mutex_lock(&sim->sim_mutex);
+	sim->is_running = 0;
+	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
 void	sim_cleanup(t_sim *sim)

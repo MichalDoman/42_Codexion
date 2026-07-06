@@ -6,20 +6,52 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:13 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 11:23:39 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:53:09 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	monitor_burnout(t_sim *sim)
+static int	monitor_burnout(t_sim *sim)
 {
-	
+	int		i;
+	long	last_compile_time;
+
+	i = 0;
+	while (i < sim->config.number_of_coders)
+	{
+		pthread_mutex_lock(sim->sim_mutex);
+		last_compile_time = sim->coders[i].last_compile_time;
+		pthread_mutex_unlock(sim->sim_mutex);
+		if ((time_get_ms() - last_compile_time) > sim->config.time_to_burnout)
+		{
+			sim_stop(sim);
+			sim_log(sim, i + 1, "burned out");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-int monitor_compile_count(t_sim *sim)
+static int monitor_compile_count(t_sim *sim)
 {
-	
+	int		i;
+	int		compiles_req;
+	int		compile_count;
+
+	i = 0;
+	compiles_req = sim->config->number_of_compiles_required;
+	while (i < sim->config.number_of_coders)
+	{
+		pthread_mutex_lock(sim->sim_mutex);
+		compile_count = sim->coders[i].compile_count;
+		pthread_mutex_unlock(sim->sim_mutex);
+		if (compile_count < compiles_req)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 void	*monitor_routine(void *arg)
@@ -33,12 +65,7 @@ void	*monitor_routine(void *arg)
 		if (monitor_burnout(sim))
 			return (NULL);
 		if (monitor_compile_count(sim))
-		{
-			pthread_mutex_lock(&im->sim_mutex);
-			sim->is_running = 0;
-			pthread_mutex_unlock(&sim->sim_mutex);
 			return (NULL);
-		}
 		usleep(250);
 	}
 	return (NULL);

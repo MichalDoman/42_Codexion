@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coders.c                                           :+:      :+:    :+:   */
+/*   coder.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:11 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:36:41 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 13:55:24 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,47 @@ void	coder_set_start_time_multi(t_sim *sim)
 	}
 }
 
+void	coder_compile(t_coder *coder)
+{
+	long	time_to_compile;
+
+	time_to_compile = coder->sim->config.time_to_compile;
+}
+
+void	coder_debug(t_coder *coder)
+{
+	long	time_to_debug;
+
+	time_to_debug = coder->sim->config.time_to_debug;
+	sim_log(coder->sim, coder->id, "is debugging");
+	usleep(time_to_debug);
+}
+
+void	coder_refactor(t_coder *coder)
+{
+	long	time_to_refactor;
+
+	time_to_refactor = coder->sim->config.time_to_refactor;
+	sim_log(coder->sim, coder->id, "is refactoring");
+	usleep(time_to_refactor);
+}
+
 void	*coder_routine(void *arg)
 {
 	t_coder	*coder;
 
 	coder = (t_coder *)arg;
-	while(coder->sim->is_running)
+	thread_wait_for_sim_ready(coder->sim);
+	while(sim_is_running(coder->sim))
 	{
-		thread_wait_for_sim_ready(coder->sim);
-		printf("Coder %d routine start\n", coder->id);
+		if (!sim_is_running(coder->sim))
+			return (NULL);
+		while (sim_is_running(coder->sim))
+		{
+			coder_compile(coder);
+			coder_debug(coder);
+			coder_refactor(coder);
+		}
 	}
 	return (NULL);
 }

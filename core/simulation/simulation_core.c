@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 15:44:07 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 16:31:22 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:15:44 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	sim_stop(t_sim *sim)
 void	sim_start(t_sim *sim)
 {
 	create_threads(sim);
-
 	join_threads(sim);
 	sim_cleanup(sim);
 }

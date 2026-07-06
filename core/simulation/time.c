@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/06 09:58:13 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 09:58:46 by mdomansk         ###   ########.fr       */
+/*   Created: 2026/07/06 09:56:56 by mdomansk          #+#    #+#             */
+/*   Updated: 2026/07/06 10:02:05 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	*monitor_routine(void *arg)
+long	get_time_ms(void)
 {
-	t_sim	*sim;
+	struct timeval	tv;
+	long			seconds;
+	long			miliseconds;
+	long			microseconds;
 
-	sim = (t_sim *)arg;
-	// monitor logic
-	return (NULL);
+	gettimeofday(&tv, NULL);
+	seconds = (long)tv.tv_sec;
+	microseconds = (long)tv.tv_usec;
+	miliseconds = seconds * 1000 + microseconds / 1000;
+	return miliseconds;
 }

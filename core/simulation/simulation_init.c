@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_simulation.c                                  :+:      :+:    :+:   */
+/*   simulation_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 15:43:08 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:14:24 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ static int	init_coders(t_coder **coders, t_sim *sim)
 	return (1);
 }
 
-void	set_coders_start_time(t_sim *sim)
-{
-	int	i;
-
-	i = 0;
-	while (i < sim->config.number_of_coders)
-	{
-		sim->coders[i].last_compile_time = sim->start_time;
-		i++;
-	}
-}
-
 static int init_mutexes(t_sim *sim)
 {
 	if (pthread_mutex_init(&sim->start_mutex, NULL) != 0)
@@ -89,6 +77,10 @@ static int init_mutexes(t_sim *sim)
 	return (1);
 }
 
+/*
+"sim->is_ready" is set to 1 and "start_time", 
+are calculated after all threads are ready.
+*/
 int	sim_init(t_sim *sim, t_config *config)
 {
 	if (!sim || !config)

@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 09:59:05 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:22:51 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_sim
 	t_dongle		*dongles;
 	pthread_t		monitor_thread;
 	pthread_mutex_t	log_mutex;
-	pthread_mutex_t	state_mutex;
+	pthread_mutex_t	sim_mutex;
 
 	pthread_mutex_t	start_mutex;
 	pthread_cond_t	start_cond;

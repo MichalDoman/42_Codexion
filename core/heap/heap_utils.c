@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:27 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 09:58:54 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:26:01 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ void	heap_swap(t_heap_item *a, t_heap_item *b)
 
 void	heap_branch_adjust(t_heap *heap, int flag)
 {
-	int current_i;
-	int left_i;
+	int	current_i;
+	int	left_i;
 	int	right_i;
-	int best_i;
+	int	best_i;
 
 	current_i = 0;
-	while(1)
+	while (1)
 	{
 		left_i = current_i * 2 + 1;
 		right_i = current_i * 2 + 2;
 		best_i = current_i;
-		if(left_i < heap->size
-		&& heap_compare(&heap->items[left_i], &heap->items[best_i], flag))
+		if (left_i < heap->size
+			&& heap_compare(&heap->items[left_i], &heap->items[best_i], flag))
 			best_i = left_i;
-		if(right_i < heap->size
-		&& heap_compare(&heap->items[right_i], &heap->items[best_i], flag))
+		if (right_i < heap->size
+			&& heap_compare(&heap->items[right_i], &heap->items[best_i], flag))
 			best_i = right_i;
 		if (best_i == current_i)
 			break ;

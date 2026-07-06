@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 10:03:31 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/01 16:30:58 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:26:53 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_heap	*heap_init(int max_size, int flag)
 	}
 	heap->max_size = max_size;
 	heap->size = 0;
+	heap->flag = flag;
 	return (heap);
 }
 
@@ -46,10 +47,11 @@ void	heap_push(t_heap *heap, t_heap_item *item)
 	{
 		parent_id = (i - 1) / 2;
 		if (!heap_compare(
-			&(heap->items[i]),
-			&(heap->items[parent_id]),
-			heap->flag
-		))
+				&(heap->items[i]),
+				&(heap->items[parent_id]),
+				heap->flag
+			)
+		)
 			return ;
 		heap_swap(&(heap->items[i]), &(heap->items[parent_id]));
 		i = parent_id;
@@ -62,9 +64,9 @@ int	heap_remove(t_heap *heap, t_heap_item *item)
 		return (0);
 	*item = heap->items[0];
 	heap->size--;
-	heap->item[0] == heap->items[heap->size];
+	heap->items[0] = heap->items[heap->size];
 	if (heap->size > 0)
-		heap_adjust(heap, 0, heap->flag);
+		heap_branch_adjust(heap, heap->flag);
 	return (1);
 }
 

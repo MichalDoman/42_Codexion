@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:14:24 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:23:20 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	init_coders(t_coder **coders, t_sim *sim)
 	return (1);
 }
 
-static int init_mutexes(t_sim *sim)
+static int	init_mutexes(t_sim *sim)
 {
 	if (pthread_mutex_init(&sim->start_mutex, NULL) != 0)
 		return (0);
@@ -67,7 +67,7 @@ static int init_mutexes(t_sim *sim)
 		pthread_mutex_destroy(&sim->start_mutex);
 		return (0);
 	}
-	if (pthread_mutex_init(&sim->state_mutex, NULL) != 0)
+	if (pthread_mutex_init(&sim->sim_mutex, NULL) != 0)
 	{
 		pthread_mutex_destroy(&sim->log_mutex);
 		pthread_cond_destroy(&sim->start_cond);

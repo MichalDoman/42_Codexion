@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:11 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:12:48 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:24:30 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	*coder_routine(void *arg)
 	coder = (t_coder *)arg;
 	while(coder->sim->is_running)
 	{
-		wait_until_sim_is_ready(coder->sim);
+		thread_wait_for_sim_ready(coder->sim);
 	}
 	return (NULL);
 }

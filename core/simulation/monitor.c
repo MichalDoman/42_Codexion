@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:13 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 09:58:46 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:24:33 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	*monitor_routine(void *arg)
 	t_sim	*sim;
 
 	sim = (t_sim *)arg;
-	// monitor logic
+	thread_wait_for_sim_ready(sim);
 	return (NULL);
 }

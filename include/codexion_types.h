@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:22:51 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:32:54 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_sim
 	t_config		config;
 	t_coder			*coders;
 	t_dongle		*dongles;
+
 	pthread_t		monitor_thread;
 	pthread_mutex_t	log_mutex;
 	pthread_mutex_t	sim_mutex;

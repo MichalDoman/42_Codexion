@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:17 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:24:14 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 11:10:13 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,6 @@ void	thread_create_multi(t_sim *sim)
 		monitor_routine,
 		sim
 	);
-	pthread_mutex_lock(&sim->start_mutex);
-	sim->start_time = get_time_ms();
-	coder_set_start_time_multi(sim);
-	sim->is_ready = 1;
-	pthread_cond_broadcast(&sim->start_cond);
-	pthread_mutex_unlock(&sim->start_mutex);
 }
 
 void	thread_join_multi(t_sim *sim)

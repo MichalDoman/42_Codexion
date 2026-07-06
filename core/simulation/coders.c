@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:11 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:24:30 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/06 10:36:41 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*coder_routine(void *arg)
 	while(coder->sim->is_running)
 	{
 		thread_wait_for_sim_ready(coder->sim);
+		printf("Coder %d routine start\n", coder->id);
 	}
 	return (NULL);
 }

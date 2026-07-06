@@ -3,16 +3,16 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -pthread -Iinclude
 
 SRC =	main.c \
-		core/parsing/validation.c \
-		core/parsing/parsing.c \
-		core/simulation/simulation_init.c \
-		core/simulation/simulation_core.c \
-		core/simulation/threads.c \
-		core/simulation/monitor.c \
-		core/simulation/coders.c \
-		core/simulation/time.c \
-		core/heap/heap.c \
-		core/heap/heap_utils.c \
+		src/parsing/validation.c \
+		src/parsing/parsing.c \
+		src/core/simulation/simulation_init.c \
+		src/core/simulation/simulation_core.c \
+		src/core/threads.c \
+		src/core/monitor.c \
+		src/core/coders.c \
+		src/core/time.c \
+		src/heap/heap.c \
+		src/heap/heap_utils.c \
 		utils/debugging/print_config.c \
 		utils/debugging/print_sim.c \
 

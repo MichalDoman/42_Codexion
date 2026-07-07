@@ -17,18 +17,30 @@ void	coder_set_start_time_multi(t_sim *sim)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&sim->sim_mutex);
 	while (i < sim->config.number_of_coders)
 	{
 		sim->coders[i].last_compile_time = sim->start_time;
 		i++;
 	}
+	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
 void	coder_compile(t_coder *coder)
 {
+	t_sim	*sim;
 	long	time_to_compile;
 
+	sim = coder->sim;
 	time_to_compile = coder->sim->config.time_to_compile;
+	pthread_mutex_lock(&sim->sim_mutex);
+	coder->last_compile_time = time_get_ms();
+	pthread_mutex_unlock(&sim->sim_mutex);
+	sim_log(sim, coder->id, "is compiling");
+	usleep(time_to_compile * 1000);
+	pthread_mutex_lock(&sim->sim_mutex);
+	coder->compile_count++;
+	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
 void	coder_debug(t_coder *coder)
@@ -37,7 +49,7 @@ void	coder_debug(t_coder *coder)
 
 	time_to_debug = coder->sim->config.time_to_debug;
 	sim_log(coder->sim, coder->id, "is debugging");
-	usleep(time_to_debug);
+	usleep(time_to_debug * 1000);
 }
 
 void	coder_refactor(t_coder *coder)
@@ -46,7 +58,7 @@ void	coder_refactor(t_coder *coder)
 
 	time_to_refactor = coder->sim->config.time_to_refactor;
 	sim_log(coder->sim, coder->id, "is refactoring");
-	usleep(time_to_refactor);
+	usleep(time_to_refactor * 1000);
 }
 
 void	*coder_routine(void *arg)
@@ -55,16 +67,11 @@ void	*coder_routine(void *arg)
 
 	coder = (t_coder *)arg;
 	thread_wait_for_sim_ready(coder->sim);
-	while(sim_is_running(coder->sim))
+	while (sim_is_running(coder->sim))
 	{
-		if (!sim_is_running(coder->sim))
-			return (NULL);
-		while (sim_is_running(coder->sim))
-		{
-			coder_compile(coder);
-			coder_debug(coder);
-			coder_refactor(coder);
-		}
+		coder_compile(coder);
+		coder_debug(coder);
+		coder_refactor(coder);
 	}
 	return (NULL);
 }

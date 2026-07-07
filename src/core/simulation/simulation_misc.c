@@ -14,8 +14,16 @@ void	sim_log(t_sim *sim, int coder_id, char *msg)
 {
 	long	timestamp;
 
-	pthread_mutex_lock(sim->log_mutex);
-	timestamp = time_get_ms() - sim->start_time;
-	printf("%ld %d %s\n", timestamp, coder_id, msg);	
-	pthread_mutex_unlock(sim->log_mutex);
+	pthread_mutex_lock(&sim->log_mutex);
+	if (sim_is_running(sim))
+	{
+		timestamp = time_get_ms() - sim->start_time;
+		printf("%ld %d %s\n", timestamp, coder_id, msg);
+	}	
+	pthread_mutex_unlock(&sim->log_mutex);
+}
+
+void	sim_log_burnout(t_sim *sim, int coder_id, char *msg)
+{
+
 }

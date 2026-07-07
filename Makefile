@@ -10,6 +10,7 @@ SRC =	main.c \
 		src/core/simulation/simulation_misc.c \
 		src/core/threads.c \
 		src/core/monitor.c \
+		src/core/dongle.c \
 		src/core/coder.c \
 		src/core/time.c \
 		src/heap/heap.c \

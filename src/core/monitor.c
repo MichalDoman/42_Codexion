@@ -23,10 +23,9 @@ static int	monitor_burnout(t_sim *sim)
 		pthread_mutex_lock(sim->sim_mutex);
 		last_compile_time = sim->coders[i].last_compile_time;
 		pthread_mutex_unlock(sim->sim_mutex);
-		if ((time_get_ms() - last_compile_time) > sim->config.time_to_burnout)
+		if ((time_get_ms() - last_compile_time) >= sim->config.time_to_burnout)
 		{
-			sim_stop(sim);
-			sim_log(sim, i + 1, "burned out");
+			sim_log_burnout(sim, i + 1, "burned out");
 			return (1);
 		}
 		i++;
@@ -41,17 +40,17 @@ static int monitor_compile_count(t_sim *sim)
 	int		compile_count;
 
 	i = 0;
-	compiles_req = sim->config->number_of_compiles_required;
+	compiles_req = sim->config.number_of_compiles_required;
 	while (i < sim->config.number_of_coders)
 	{
 		pthread_mutex_lock(sim->sim_mutex);
 		compile_count = sim->coders[i].compile_count;
 		pthread_mutex_unlock(sim->sim_mutex);
 		if (compile_count < compiles_req)
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 void	*monitor_routine(void *arg)

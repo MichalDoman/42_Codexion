@@ -16,12 +16,12 @@ long	time_get_ms(void)
 {
 	struct timeval	tv;
 	long			seconds;
-	long			miliseconds;
+	long			milliseconds;
 	long			microseconds;
 
 	gettimeofday(&tv, NULL);
 	seconds = (long)tv.tv_sec;
 	microseconds = (long)tv.tv_usec;
 	miliseconds = seconds * 1000 + microseconds / 1000;
-	return miliseconds;
+	return milliseconds;
 }

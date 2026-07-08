@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 11:37:59 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 10:09:23 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_config
 	long		time_to_debug;
 	long		time_to_refactor;
 	int			number_of_compiles_required;
-	int			dongle_cooldown;
+	long		dongle_cooldown;
 	char		*scheduler;
 }	t_config;
 
@@ -34,7 +34,7 @@ typedef struct s_dongle
 {
 	int				id;
 	int				coder_id;
-	long			cooldown_until;
+	long			cooldown;
 	t_heap			*queue;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;

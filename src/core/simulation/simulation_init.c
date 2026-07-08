@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:23:20 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 12:48:26 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 {
-	int	i;
+	int			i;
+	t_dongle	*dongle;
 
 	*dongles = malloc(sizeof(t_dongle) * number_of_dongles);
 	if (!*dongles)
@@ -22,8 +23,22 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	i = 0;
 	while (i < number_of_dongles)
 	{
-		(*dongles)[i].id = i + 1;
-		(*dongles)[i].coder_id = 0;
+		dongle = &(*dongles)[i];
+		dongle->id = i + 1;
+		dongle->coder_id = 0;
+		dongle->cooldown = 0;
+		dongle->queue = NULL;
+		if (pthread_cond_init(&dongle->cond, NULL) != 0)
+		{
+			dongle_destroy_multi(*dongles, i);
+			return (*dongles = NULL, 0);
+		}
+		if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
+		{
+			pthread_cond_destroy(&dongle->cond);
+			dongle_destroy_multi(*dongles, i);
+			return (*dongles = NULL, 0);
+		}
 		i++;
 	}
 	return (1);
@@ -31,8 +46,9 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 
 static int	init_coders(t_coder **coders, t_sim *sim)
 {
-	int	i;
-	int	number_of_coders;
+	int		i;
+	int		number_of_coders;
+	t_coder	*coder;
 
 	number_of_coders = sim->config.number_of_coders;
 	*coders = malloc(sizeof(t_coder) * number_of_coders);
@@ -41,12 +57,13 @@ static int	init_coders(t_coder **coders, t_sim *sim)
 	i = 0;
 	while (i < number_of_coders)
 	{
-		(*coders)[i].id = i + 1;
-		(*coders)[i].compile_count = 0;
-		(*coders)[i].last_compile_time = sim->start_time;
-		(*coders)[i].left_dongle = &sim->dongles[i];
-		(*coders)[i].right_dongle = &sim->dongles[(i + 1) % number_of_coders];
-		(*coders)[i].sim = sim;
+		coder = &(*coders)[i];
+		coder->id = i + 1;
+		coder->compile_count = 0;
+		coder->last_compile_time = sim->start_time;
+		coder->left_dongle = &sim->dongles[i];
+		coder->right_dongle = &sim->dongles[(i + 1) % number_of_coders];
+		coder->sim = sim;
 		i++;
 	}
 	return (1);

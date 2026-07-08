@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:13 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 13:53:09 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 10:13:52 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	monitor_burnout(t_sim *sim)
 	return (0);
 }
 
-static int monitor_compile_count(t_sim *sim)
+static int	monitor_compile_count(t_sim *sim)
 {
 	int		i;
 	int		compiles_req;
@@ -65,7 +65,7 @@ void	*monitor_routine(void *arg)
 			return (NULL);
 		if (monitor_compile_count(sim))
 			return (NULL);
-		usleep(250);
+		usleep(500);
 	}
 	return (NULL);
 }

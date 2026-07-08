@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:27:16 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:33:26 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 10:21:03 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_coders(t_coder *coders, int number_of_coders)
 		printf("coder[%d]: id=%d\n",
 			i,
 			coders[i].id
-		);
+			);
 		i++;
 	}
 }

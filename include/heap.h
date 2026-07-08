@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 10:04:10 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:25:28 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 10:27:37 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_heap_item
 {
-	int	coder_id;
+	int	id;
 	int	value;
 }	t_heap_item;
 

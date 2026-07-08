@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:27 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:26:01 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 10:28:21 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	heap_compare(t_heap_item *a, t_heap_item *b, int flag)
 {
 	if (a->value == b->value)
-		return (a->coder_id < b->coder_id);
+		return (a->id < b->id);
 	if (flag == 1)
 		return (a->value > b->value);
 	return (a->value < b->value);

@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 12:48:26 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 17:52:13 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 		dongle = &(*dongles)[i];
 		dongle->id = i + 1;
 		dongle->coder_id = 0;
-		dongle->cooldown = 0;
+		dongle->next_availability_time = 0;
 		dongle->queue = NULL;
 		if (pthread_cond_init(&dongle->cond, NULL) != 0)
-		{
-			dongle_destroy_multi(*dongles, i);
-			return (*dongles = NULL, 0);
-		}
+			return (dongle_destroy_multi(dongles, i), 0);
 		if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
 		{
 			pthread_cond_destroy(&dongle->cond);
-			dongle_destroy_multi(*dongles, i);
-			return (*dongles = NULL, 0);
+			return (dongle_destroy_multi(dongles, i), 0);
 		}
 		i++;
 	}
@@ -60,7 +56,7 @@ static int	init_coders(t_coder **coders, t_sim *sim)
 		coder = &(*coders)[i];
 		coder->id = i + 1;
 		coder->compile_count = 0;
-		coder->last_compile_time = sim->start_time;
+		coder->compile_start_time = sim->start_time;
 		coder->left_dongle = &sim->dongles[i];
 		coder->right_dongle = &sim->dongles[(i + 1) % number_of_coders];
 		coder->sim = sim;

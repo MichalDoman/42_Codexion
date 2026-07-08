@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 15:44:07 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 12:49:04 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 13:28:45 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ void	sim_cleanup(t_sim *sim)
 	if (!sim)
 		return ;
 	if (sim->dongles)
-	{
-		dongle_destroy_multi(sim->dongles, sim->config.number_of_coders);
-		sim->dongles = NULL;
-	}
+		dongle_destroy_multi(&sim->dongles, sim->config.number_of_coders);
 	if (sim->coders)
 	{
 		free(sim->coders);

@@ -11,7 +11,8 @@ SRC =	main.c \
 		src/core/threads.c \
 		src/core/monitor.c \
 		src/core/dongle.c \
-		src/core/coder.c \
+		src/core/coder/coder_routine.c \
+		src/core/coder/coder_misc.c \
 		src/core/time.c \
 		src/heap/heap.c \
 		src/heap/heap_utils.c \

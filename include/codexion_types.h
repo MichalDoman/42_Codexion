@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 10:09:23 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 17:55:23 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_dongle
 {
 	int				id;
 	int				coder_id;
-	long			cooldown;
+	long			next_availability_time;
 	t_heap			*queue;
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;
@@ -44,7 +44,7 @@ typedef struct s_coder
 {
 	int				id;
 	int				compile_count;
-	long			last_compile_time;
+	long			compile_start_time;
 	pthread_t		thread;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;

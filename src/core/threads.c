@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:17 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 13:34:54 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 18:42:11 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	thread_create_multi(t_sim *sim)
 			NULL,
 			coder_routine,
 			&(sim->coders[i])
-		);
+			);
 		i++;
 	}
 	pthread_create(
@@ -40,7 +40,7 @@ void	thread_create_multi(t_sim *sim)
 		NULL,
 		monitor_routine,
 		sim
-	);
+		);
 }
 
 void	thread_join_multi(t_sim *sim)
@@ -55,4 +55,3 @@ void	thread_join_multi(t_sim *sim)
 		i++;
 	}
 }
-

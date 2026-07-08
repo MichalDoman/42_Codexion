@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:20:34 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/06 10:32:58 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:16:20 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!sim_init(&sim, &config))
 		return (1);
-	print_sim(&sim);
 	sim_start(&sim);
 	return (0);
 }

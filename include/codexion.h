@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 18:37:49 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:13:05 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void		thread_join_multi(t_sim *sim);
 void		*monitor_routine(void *arg);
 
 // src/core/dongle.c [4/5]:
-void		dongle_lock(t_dongle *dongle, int coder_id);
-void		dongle_unlock(t_dongle *dongle);
 int			dongle_is_available(t_dongle *dongle);
+void		dongle_lock(t_dongle *dongle, int coder_id);
+void		dongle_unlock(t_dongle *dongle, long cooldown);
 void		dongle_destroy_multi(t_dongle **dongles, int count);
 
 // src/core/coder/coder_routine.c [4/5]:

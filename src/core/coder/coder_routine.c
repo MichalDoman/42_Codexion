@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:11 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 18:36:32 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:13:42 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ static void	coder_compile(t_coder *coder)
 
 	sim = coder->sim;
 	time_to_compile = coder->sim->config.time_to_compile;
+	coder_lock_dongles(coder);
 	pthread_mutex_lock(&sim->sim_mutex);
-	coder->last_compile_time = time_get_ms();
+	coder->last_compile_start = time_get_ms();
 	pthread_mutex_unlock(&sim->sim_mutex);
 	sim_log(sim, coder->id, "is compiling");
 	usleep(time_to_compile * 1000);
 	pthread_mutex_lock(&sim->sim_mutex);
 	coder->compile_count++;
 	pthread_mutex_unlock(&sim->sim_mutex);
+	coder_unlock_dongles(coder);
 }
 
 static void	coder_debug(t_coder *coder)
@@ -56,10 +58,10 @@ void	*coder_routine(void *arg)
 	while (sim_is_running(coder->sim))
 	{
 		coder_compile(coder);
-		if (!sim_is_running(coder->sim));
+		if (!sim_is_running(coder->sim))
 			return (NULL);
 		coder_debug(coder);
-		if (!sim_is_running(coder->sim));
+		if (!sim_is_running(coder->sim))
 			return (NULL);
 		coder_refactor(coder);
 	}

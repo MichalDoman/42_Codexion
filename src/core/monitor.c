@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:13 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 17:51:03 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:29:10 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	monitor_burnout(t_sim *sim)
 	while (i < sim->config.number_of_coders)
 	{
 		pthread_mutex_lock(&sim->sim_mutex);
-		compile_start_time = sim->coders[i].compile_start_time;
+		compile_start_time = sim->coders[i].last_compile_start;
 		pthread_mutex_unlock(&sim->sim_mutex);
 		time_since_compile_start = (time_get_ms() - compile_start_time);
 		if (time_since_compile_start >= sim->config.time_to_burnout)

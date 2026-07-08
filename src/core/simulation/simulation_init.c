@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 17:52:13 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:28:16 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	init_coders(t_coder **coders, t_sim *sim)
 		coder = &(*coders)[i];
 		coder->id = i + 1;
 		coder->compile_count = 0;
-		coder->compile_start_time = sim->start_time;
+		coder->last_compile_start = sim->start_time;
 		coder->left_dongle = &sim->dongles[i];
 		coder->right_dongle = &sim->dongles[(i + 1) % number_of_coders];
 		coder->sim = sim;

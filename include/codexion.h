@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:13:05 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/08 20:38:09 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		sim_start(t_sim *sim);
 void		sim_stop(t_sim *sim);
 void		sim_cleanup(t_sim *sim);
 
-// src/core/simulation/simulation_misc.c [1/5]:
+// src/core/simulation/simulation_misc.c [2/5]:
 void		sim_log(t_sim *sim, int coder_id, char *msg);
 void		sim_log_burnout(t_sim *sim, int coder_id, char *msg);
 

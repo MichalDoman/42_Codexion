@@ -70,7 +70,7 @@ int			coder_lock_dongles(t_coder *coder);
 void		coder_unlock_dongles(t_coder *coder);
 int			coder_has_required_compiles(t_coder *coder);
 
-// src/core/time.c [1/5]:
+// src/core/time.c [2/5]:
 long		time_get_ms(void);
 void		time_sleep(t_sim *sim, long duration);
 

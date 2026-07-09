@@ -64,10 +64,11 @@ void		dongle_destroy_multi(t_dongle **dongles, int count);
 // src/core/coder/coder_routine.c [4/5]:
 void		*coder_routine(void *arg);
 
-// src/core/coder/coder_misc.c [3/5]:
+// src/core/coder/coder_misc.c [4/5]:
 void		coder_set_start_time_multi(t_sim *sim);
 int			coder_lock_dongles(t_coder *coder);
 void		coder_unlock_dongles(t_coder *coder);
+int			coder_has_required_compiles(t_coder *coder);
 
 // src/core/time.c [1/5]:
 long		time_get_ms(void);

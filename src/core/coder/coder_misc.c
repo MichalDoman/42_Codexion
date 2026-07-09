@@ -53,3 +53,17 @@ void	coder_unlock_dongles(t_coder *coder)
 	dongle_unlock(coder->left_dongle, cooldown);
 	dongle_unlock(coder->right_dongle, cooldown);
 }
+
+int	coder_has_required_compiles(t_coder *coder)
+{
+	int	compile_count;
+	int	compile_req;
+
+	compile_req = coder->sim->config.number_of_compiles_required;
+	if (compile_req <= 0)
+		return (0);
+	pthread_mutex_lock(&coder->sim->sim_mutex);
+	compile_count = coder->compile_count;
+	pthread_mutex_unlock(&coder->sim->sim_mutex);
+	return (compile_count >= compile_req);
+}

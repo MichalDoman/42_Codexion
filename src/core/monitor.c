@@ -15,16 +15,21 @@
 static int	monitor_burnout(t_sim *sim)
 {
 	int		i;
-	long	compile_start_time;
+	long	last_compile_start;
 	long	time_since_compile_start;
 
 	i = 0;
 	while (i < sim->config.number_of_coders)
 	{
+		if (coder_has_required_compiles(&sim->coders[i]))
+		{
+			i++;
+			continue ;
+		}
 		pthread_mutex_lock(&sim->sim_mutex);
-		compile_start_time = sim->coders[i].last_compile_start;
+		last_compile_start = sim->coders[i].last_compile_start;
 		pthread_mutex_unlock(&sim->sim_mutex);
-		time_since_compile_start = (time_get_ms() - compile_start_time);
+		time_since_compile_start = (time_get_ms() - last_compile_start);
 		if (time_since_compile_start >= sim->config.time_to_burnout)
 		{
 			sim_log_burnout(sim, i + 1, "burned out");

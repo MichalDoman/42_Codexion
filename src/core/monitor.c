@@ -64,9 +64,9 @@ void	*monitor_routine(void *arg)
 	while (sim_is_running(sim))
 	{
 		if (monitor_burnout(sim))
-			return (NULL);
+			return (sim_stop(sim), NULL);
 		if (monitor_compile_count(sim))
-			return (NULL);
+			return (sim_stop(sim), NULL);
 		usleep(500);
 	}
 	return (NULL);

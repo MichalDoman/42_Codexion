@@ -19,12 +19,13 @@ static void	coder_compile(t_coder *coder)
 
 	sim = coder->sim;
 	time_to_compile = coder->sim->config.time_to_compile;
-	coder_lock_dongles(coder);
+	if (!coder_lock_dongles(coder))
+		return ;
 	pthread_mutex_lock(&sim->sim_mutex);
 	coder->last_compile_start = time_get_ms();
 	pthread_mutex_unlock(&sim->sim_mutex);
 	sim_log(sim, coder->id, "is compiling");
-	usleep(time_to_compile * 1000);
+	time_sleep(coder->sim, time_to_compile);
 	pthread_mutex_lock(&sim->sim_mutex);
 	coder->compile_count++;
 	pthread_mutex_unlock(&sim->sim_mutex);
@@ -37,7 +38,7 @@ static void	coder_debug(t_coder *coder)
 
 	time_to_debug = coder->sim->config.time_to_debug;
 	sim_log(coder->sim, coder->id, "is debugging");
-	usleep(time_to_debug * 1000);
+	time_sleep(coder->sim, time_to_debug);
 }
 
 static void	coder_refactor(t_coder *coder)
@@ -46,7 +47,7 @@ static void	coder_refactor(t_coder *coder)
 
 	time_to_refactor = coder->sim->config.time_to_refactor;
 	sim_log(coder->sim, coder->id, "is refactoring");
-	usleep(time_to_refactor * 1000);
+	time_sleep(coder->sim, time_to_refactor);
 }
 
 void	*coder_routine(void *arg)

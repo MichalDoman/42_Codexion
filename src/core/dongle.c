@@ -16,16 +16,26 @@ int	dongle_is_available(t_dongle *dongle)
 {
 	if (dongle->coder_id != 0)
 		return (0);
-	if (dongle->next_availability_time <= time_get_ms())
+	if (dongle->next_availability_time > time_get_ms())
 		return (0);
 	return (1);
 }
 
-void	dongle_lock(t_dongle *dongle, int coder_id)
+int	dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id)
 {
-	while (!dongle_is_available(dongle))
-		pthread_cond_wait(&dongle->cond, &dongle->mutex);
-	dongle->coder_id = coder_id;
+	while (sim_is_running(sim))
+	{
+		pthread_mutex_lock(&dongle->mutex);
+		if (dongle_is_available(dongle))
+		{
+			dongle->coder_id = coder_id;
+			pthread_mutex_unlock(&dongle->mutex);
+			return (1);
+		}
+		pthread_mutex_unlock(&dongle->mutex);
+		usleep(500);
+	}
+	return (0);
 }
 
 void	dongle_unlock(t_dongle *dongle, long cooldown)
@@ -33,8 +43,6 @@ void	dongle_unlock(t_dongle *dongle, long cooldown)
 	pthread_mutex_lock(&dongle->mutex);
 	dongle->coder_id = 0;
 	dongle->next_availability_time = time_get_ms() + cooldown;
-	usleep(cooldown * 1000);
-	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
 }
 
@@ -51,7 +59,6 @@ void	dongle_destroy_multi(t_dongle **dongles, int count)
 		dongle = &(*dongles)[i];
 		if (dongle->queue)
 			heap_free(dongle->queue);
-		pthread_cond_destroy(&dongle->cond);
 		pthread_mutex_destroy(&dongle->mutex);
 		i++;
 	}

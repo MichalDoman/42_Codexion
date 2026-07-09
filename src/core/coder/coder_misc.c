@@ -26,7 +26,7 @@ void	coder_set_start_time_multi(t_sim *sim)
 	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
-void	coder_lock_dongles(t_coder *coder)
+int	coder_lock_dongles(t_coder *coder)
 {
 	t_dongle	*first_dongle;
 	t_dongle	*second_dongle;
@@ -38,12 +38,11 @@ void	coder_lock_dongles(t_coder *coder)
 		first_dongle = coder->left_dongle;
 		second_dongle = coder->right_dongle;
 	}
-	pthread_mutex_lock(&first_dongle->mutex);
-	dongle_lock(first_dongle, coder->id);
-	pthread_mutex_lock(&second_dongle->mutex);
-	dongle_lock(second_dongle, coder->id);
-	pthread_mutex_unlock(&second_dongle->mutex);
-	pthread_mutex_unlock(&first_dongle->mutex);
+	if (!dongle_lock(first_dongle, coder->sim, coder->id))
+		return (0);
+	if (!dongle_lock(second_dongle, coder->sim, coder->id))
+		return (dongle_unlock(first_dongle, 0), 0);
+	return (1);
 }
 
 void	coder_unlock_dongles(t_coder *coder)

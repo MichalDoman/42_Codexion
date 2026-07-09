@@ -37,7 +37,6 @@ typedef struct s_dongle
 	long			next_availability_time;
 	t_heap			*queue;
 	pthread_mutex_t	mutex;
-	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef struct s_coder
@@ -48,7 +47,7 @@ typedef struct s_coder
 	pthread_t		thread;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
-	t_sim			*sim; // required for coder_routine()
+	t_sim			*sim; // required for coder_routine
 }	t_coder;
 
 typedef struct s_sim

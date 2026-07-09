@@ -57,7 +57,7 @@ void		*monitor_routine(void *arg);
 
 // src/core/dongle.c [4/5]:
 int			dongle_is_available(t_dongle *dongle);
-void		dongle_lock(t_dongle *dongle, int coder_id);
+int			dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id);
 void		dongle_unlock(t_dongle *dongle, long cooldown);
 void		dongle_destroy_multi(t_dongle **dongles, int count);
 
@@ -66,11 +66,12 @@ void		*coder_routine(void *arg);
 
 // src/core/coder/coder_misc.c [3/5]:
 void		coder_set_start_time_multi(t_sim *sim);
-void		coder_lock_dongles(t_coder *coder);
+int			coder_lock_dongles(t_coder *coder);
 void		coder_unlock_dongles(t_coder *coder);
 
 // src/core/time.c [1/5]:
 long		time_get_ms(void);
+void		time_sleep(t_sim *sim, long duration);
 
 // UTILS ----------------------------------------------------------------------
 // utils/debugging:

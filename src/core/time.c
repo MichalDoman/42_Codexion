@@ -25,3 +25,12 @@ long	time_get_ms(void)
 	milliseconds = seconds * 1000 + microseconds / 1000;
 	return (milliseconds);
 }
+
+void	time_sleep(t_sim *sim, long duration)
+{
+	long	start;
+
+	start = time_get_ms();
+	while (sim_is_running(sim) && time_get_ms() - start < duration)
+		usleep(500);
+}

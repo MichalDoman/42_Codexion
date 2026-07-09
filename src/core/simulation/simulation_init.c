@@ -28,13 +28,8 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 		dongle->coder_id = 0;
 		dongle->next_availability_time = 0;
 		dongle->queue = NULL;
-		if (pthread_cond_init(&dongle->cond, NULL) != 0)
-			return (dongle_destroy_multi(dongles, i), 0);
 		if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
-		{
-			pthread_cond_destroy(&dongle->cond);
 			return (dongle_destroy_multi(dongles, i), 0);
-		}
 		i++;
 	}
 	return (1);

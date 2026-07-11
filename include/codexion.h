@@ -55,8 +55,7 @@ void		thread_join_multi(t_sim *sim);
 // src/core/monitor.c [3/5]:
 void		*monitor_routine(void *arg);
 
-// src/core/dongle.c [5/5]:
-void		dongle_create_queue(t_dongle *dongle, char *scheduler);
+// src/core/dongle.c [4/5]:
 int			dongle_is_available(t_dongle *dongle);
 int			dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id);
 void		dongle_unlock(t_dongle *dongle, long cooldown);

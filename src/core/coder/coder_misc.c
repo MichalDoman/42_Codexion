@@ -29,20 +29,26 @@ void	coder_set_start_time_multi(t_sim *sim)
 int coder_enqueue(t_dongle *dongle, t_coder *coder)
 {
 	t_heap_item	item;
-	char		*scheduler;
-	int			priority;
+	long		last_compile_start;
+	long		time_to_burnout;
+	long		priority;
 	int			result;
-
-	scheduler = coder->sim->config.scheduler;
+	
+	pthread_mutex_lock(&coder->sim->sim_mutex);
+	last_compile_start = coder->last_compile_start;
+	pthread_mutex_unlock(&coder->sim->sim_mutex);
+	time_to_burnout = coder->sim->config.time_to_burnout;
 	priority = coder->id;
-	if (strcmp(scheduler, "fifo") == 0)
-		priority = coder->queue_order;
-	else if (strcmp(scheduler, "edf") == 0)
-		priority = ;
+	pthread_mutex_lock(&dongle->mutex);
+	if (strcmp(coder->sim->config.scheduler, "fifo") == 0)
+		priority = dongle->queue_order;
+	else if (strcmp(coder->sim->config.scheduler, "edf") == 0)
+		priority = last_compile_start + time_to_burnout;
 	item.id = coder->id;
 	item.value = priority;
-	pthread_mutex_lock(&dongle->mutex);
 	result = heap_push(dongle->queue, &item);
+	if (strcmp(coder->sim->config.scheduler, "fifo") == 0 && result)
+		dongle->queue_order++;
 	pthread_mutex_unlock(&dongle->mutex);
 	return (result);
 }

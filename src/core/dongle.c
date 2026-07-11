@@ -12,14 +12,6 @@
 
 #include "codexion.h"
 
-void	dongle_create_queue(t_dongle *dongle, char *scheduler)
-{
-	if (strcmp(scheduler, "fifo") == 0)
-		dongle->queue = heap_init(MAX_HEAP_SIZE, 0);
-	else if (strcmp(scheduler, "edf") == 0)
-		dongle->queue = heap_init(MAX_HEAP_SIZE, 1);
-}
-
 int	dongle_is_available(t_dongle *dongle)
 {
 	if (dongle->coder_id != 0)
@@ -68,6 +60,7 @@ void	dongle_destroy_multi(t_dongle **dongles, int count)
 		dongle = &(*dongles)[i];
 		if (dongle->queue)
 			heap_free(dongle->queue);
+		pthread_cond_destroy(&dongle->cond);
 		pthread_mutex_destroy(&dongle->mutex);
 		i++;
 	}

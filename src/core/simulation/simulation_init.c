@@ -12,14 +12,13 @@
 
 #include "codexion.h"
 
-static int	init_dongle(t_dongle *dongle, int id, char *scheduler)
+static int	init_dongle(t_dongle *dongle, int id)
 {
 	dongle->id = id;
 	dongle->coder_id = 0;
 	dongle->next_availability_time = 0;
 	dongle->queue_order = 0;
-	dongle->queue = NULL;
-	dongle_create_queue(dongle, scheduler);
+	dongle->queue = heap_init(MAX_HEAP_SIZE, 0);
 	if (!dongle->queue)
 		return (0);
 	if (pthread_cond_init(&dongle->cond, NULL) != 0)
@@ -33,10 +32,7 @@ static int	init_dongle(t_dongle *dongle, int id, char *scheduler)
 	return (1);
 }
 
-static int	init_dongles(
-	t_dongle **dongles,
-	int number_of_dongles,
-	char *scheduler)
+static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 {
 	int	i;
 
@@ -118,10 +114,7 @@ int	sim_init(t_sim *sim, t_config *config)
 	sim->is_running = 1;
 	if (!init_mutexes(sim))
 		return (0);
-	if (!init_dongles(
-			&sim->dongles,
-			config->number_of_coders,
-			config->scheduler))
+	if (!init_dongles(&sim->dongles, config->number_of_coders))
 		return (sim_cleanup(sim), 0);
 	if (!init_coders(&sim->coders, sim))
 		return (sim_cleanup(sim), 0);

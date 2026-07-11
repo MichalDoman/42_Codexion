@@ -17,8 +17,8 @@
 
 typedef struct s_heap_item
 {
-	int	id;
-	int	value;
+	int		id;
+	long	value;
 }	t_heap_item;
 
 typedef struct s_heap

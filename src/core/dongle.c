@@ -21,21 +21,44 @@ int	dongle_is_available(t_dongle *dongle)
 	return (1);
 }
 
+static void	dongle_lock_wait(t_dongle *dongle)
+{
+	timespec_t	wait_timeout;
+	long		now;
+	long		cooldown_end;
+
+	now = time_get_ms();
+	cooldown_end = dongle->next_availability_time;
+	if (dongle->coder_id == 0 && cooldown_end > now)
+	{
+		wait_timeout = time_get_timespec(cooldown_end);
+		pthread_cond_timedwait(&dongle->cond, &dongle->mutex, &wait_timeout);
+	}
+	else
+		pthread_cond_wait(&dongle->cond, &dongle->mutex);
+}
+
 int	dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id)
 {
+	t_heap_item	first;
+
+	pthread_mutex_lock(&dongle->mutex);
 	while (sim_is_running(sim))
 	{
-		pthread_mutex_lock(&dongle->mutex);
-		if (dongle_is_available(dongle))
+		
+		if (dongle_is_available(dongle)
+			&& heap_point_root(dongle->queue, &first)
+			&& first.id == coder_id)
 		{
 			dongle->coder_id = coder_id;
+			heap_remove(dongle->queue);
 			pthread_mutex_unlock(&dongle->mutex);
 			sim_log(sim, coder_id, "has taken a dongle");
 			return (1);
 		}
-		pthread_mutex_unlock(&dongle->mutex);
-		usleep(500);
+		dongle_lock_wait(dongle);
 	}
+	pthread_mutex_unlock(&dongle->mutex);
 	return (0);
 }
 
@@ -44,6 +67,7 @@ void	dongle_unlock(t_dongle *dongle, long cooldown)
 	pthread_mutex_lock(&dongle->mutex);
 	dongle->coder_id = 0;
 	dongle->next_availability_time = time_get_ms() + cooldown;
+	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
 }
 

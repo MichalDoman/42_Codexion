@@ -34,3 +34,12 @@ void	time_sleep(t_sim *sim, long duration)
 	while (sim_is_running(sim) && time_get_ms() - start < duration)
 		usleep(500);
 }
+
+timespec_t	time_get_timespec(long timestamp)
+{
+	timespec_t	timespec;
+
+	timespec.tv_sec = timestamp / 1000;
+	timespec.tv_nsec = timestamp % 1000 * 1000000;
+	return (timespec);
+}

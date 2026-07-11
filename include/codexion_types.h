@@ -16,6 +16,7 @@
 # include <pthread.h>
 # include "heap.h"
 
+typedef struct timespec	timespec_t;
 typedef struct s_sim	t_sim;
 
 typedef struct s_config

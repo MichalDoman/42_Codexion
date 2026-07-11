@@ -55,3 +55,12 @@ void	heap_branch_adjust(t_heap *heap, int flag)
 		current_i = best_i;
 	}
 }
+
+void	heap_free(t_heap *heap)
+{
+	if (!heap)
+		return ;
+	free(heap->items);
+	free(heap);
+}
+

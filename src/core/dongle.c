@@ -30,6 +30,7 @@ int	dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id)
 		{
 			dongle->coder_id = coder_id;
 			pthread_mutex_unlock(&dongle->mutex);
+			sim_log(sim, coder_id, "has taken a dongle");
 			return (1);
 		}
 		pthread_mutex_unlock(&dongle->mutex);

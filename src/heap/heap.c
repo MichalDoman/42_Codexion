@@ -33,13 +33,21 @@ t_heap	*heap_init(int max_size, int flag)
 	return (heap);
 }
 
-void	heap_push(t_heap *heap, t_heap_item *item)
+int	heap_point_root(t_heap *heap, t_heap_item *ptr)
+{
+	if (!heap || !ptr || heap->size = 0)
+		return (0);
+	*ptr = heap->items[0];
+	return (1);
+}
+
+int	heap_push(t_heap *heap, t_heap_item *item)
 {
 	int	i;
 	int	parent_id;
 
 	if (!heap || !item || (heap->size >= heap->max_size))
-		return ;
+		return (0);
 	i = heap->size;
 	heap->items[i] = *item;
 	heap->size++;
@@ -49,13 +57,12 @@ void	heap_push(t_heap *heap, t_heap_item *item)
 		if (!heap_compare(
 				&(heap->items[i]),
 				&(heap->items[parent_id]),
-				heap->flag
-			)
-		)
-			return ;
+				heap->flag))
+			break ;
 		heap_swap(&(heap->items[i]), &(heap->items[parent_id]));
 		i = parent_id;
 	}
+	return (1);
 }
 
 int	heap_remove(t_heap *heap, t_heap_item *item)
@@ -77,3 +84,4 @@ void	heap_free(t_heap *heap)
 	free(heap->items);
 	free(heap);
 }
+

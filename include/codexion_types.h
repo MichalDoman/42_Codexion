@@ -36,7 +36,9 @@ typedef struct s_dongle
 	int				coder_id;
 	long			next_availability_time;
 	t_heap			*queue;
+	int				queue_priority;
 	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
 }	t_dongle;
 
 typedef struct s_coder

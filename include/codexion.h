@@ -27,14 +27,14 @@
 # include "heap.h"
 
 // PARSING --------------------------------------------------------------------
-// src/parsing/validation.c:
+// src/parsing/validation.c [3/5]:
 int			validate_arguments(int argc, char **args);
 
-// src/parsing/parsing.c:
+// src/parsing/parsing.c [1/5]:
 int			parse_arguments(char **argv, t_config *config);
 
 // SIMULATION -----------------------------------------------------------------
-// src/core/simulation/simulation_init.c [4/5]:
+// src/core/simulation/simulation_init.c [5/5]:
 int			sim_init(t_sim *sim, t_config *config);
 
 // src/core/simulation/simulation_core.c [5/5]:
@@ -55,7 +55,8 @@ void		thread_join_multi(t_sim *sim);
 // src/core/monitor.c [3/5]:
 void		*monitor_routine(void *arg);
 
-// src/core/dongle.c [4/5]:
+// src/core/dongle.c [5/5]:
+void		dongle_create_queue(t_dongle *dongle, char *scheduler);
 int			dongle_is_available(t_dongle *dongle);
 int			dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id);
 void		dongle_unlock(t_dongle *dongle, long cooldown);
@@ -64,8 +65,9 @@ void		dongle_destroy_multi(t_dongle **dongles, int count);
 // src/core/coder/coder_routine.c [4/5]:
 void		*coder_routine(void *arg);
 
-// src/core/coder/coder_misc.c [4/5]:
+// src/core/coder/coder_misc.c [5/5]:
 void		coder_set_start_time_multi(t_sim *sim);
+void 		coder_enqueue(t_dongle *dongle, t_coder *coder);
 int			coder_lock_dongles(t_coder *coder);
 void		coder_unlock_dongles(t_coder *coder);
 int			coder_has_required_compiles(t_coder *coder);

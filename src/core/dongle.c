@@ -12,6 +12,14 @@
 
 #include "codexion.h"
 
+void	dongle_create_queue(t_dongle *dongle, char *scheduler)
+{
+	if (strcmp(scheduler, "fifo") == 0)
+		dongle->queue = heap_init(MAX_HEAP_SIZE, 0);
+	else if (strcmp(scheduler, "edf") == 0)
+		dongle->queue = heap_init(MAX_HEAP_SIZE, 1);
+}
+
 int	dongle_is_available(t_dongle *dongle)
 {
 	if (dongle->coder_id != 0)

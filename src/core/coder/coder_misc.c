@@ -26,6 +26,27 @@ void	coder_set_start_time_multi(t_sim *sim)
 	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
+int coder_enqueue(t_dongle *dongle, t_coder *coder)
+{
+	t_heap_item	item;
+	char		*scheduler;
+	int			priority;
+	int			result;
+
+	scheduler = coder->sim->config.scheduler;
+	priority = coder->id;
+	if (strcmp(scheduler, "fifo") == 0)
+		priority = coder->queue_order;
+	else if (strcmp(scheduler, "edf") == 0)
+		priority = ;
+	item.id = coder->id;
+	item.value = priority;
+	pthread_mutex_lock(&dongle->mutex);
+	result = heap_push(dongle->queue, &item);
+	pthread_mutex_unlock(&dongle->mutex);
+	return (result);
+}
+
 int	coder_lock_dongles(t_coder *coder)
 {
 	t_dongle	*first_dongle;

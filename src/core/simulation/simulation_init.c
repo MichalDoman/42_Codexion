@@ -12,10 +12,33 @@
 
 #include "codexion.h"
 
-static int	init_dongles(t_dongle **dongles, int number_of_dongles)
+static int	init_dongle(t_dongle *dongle, int id, char *scheduler)
 {
-	int			i;
-	t_dongle	*dongle;
+	dongle->id = id;
+	dongle->coder_id = 0;
+	dongle->next_availability_time = 0;
+	dongle->queue_order = 0;
+	dongle->queue = NULL;
+	dongle_create_queue(dongle, scheduler);
+	if (!dongle->queue)
+		return (0);
+	if (pthread_cond_init(&dongle->cond, NULL) != 0)
+		return (heap_free(dongle->queue), 0);
+	if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
+	{
+		pthread_cond_destroy(&dongle->cond);
+		heap_free(dongle->queue);
+		return (0);
+	}
+	return (1);
+}
+
+static int	init_dongles(
+	t_dongle **dongles,
+	int number_of_dongles,
+	char *scheduler)
+{
+	int	i;
 
 	*dongles = malloc(sizeof(t_dongle) * number_of_dongles);
 	if (!*dongles)
@@ -23,12 +46,7 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	i = 0;
 	while (i < number_of_dongles)
 	{
-		dongle = &(*dongles)[i];
-		dongle->id = i + 1;
-		dongle->coder_id = 0;
-		dongle->next_availability_time = 0;
-		dongle->queue = NULL;
-		if (pthread_mutex_init(&dongle->mutex, NULL) != 0)
+		if (!init_dongle(&(*dongles)[i], i + 1, scheduler))
 			return (dongle_destroy_multi(dongles, i), 0);
 		i++;
 	}
@@ -100,7 +118,10 @@ int	sim_init(t_sim *sim, t_config *config)
 	sim->is_running = 1;
 	if (!init_mutexes(sim))
 		return (0);
-	if (!init_dongles(&sim->dongles, config->number_of_coders))
+	if (!init_dongles(
+			&sim->dongles,
+			config->number_of_coders,
+			config->scheduler))
 		return (sim_cleanup(sim), 0);
 	if (!init_coders(&sim->coders, sim))
 		return (sim_cleanup(sim), 0);

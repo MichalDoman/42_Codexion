@@ -63,4 +63,3 @@ void	heap_free(t_heap *heap)
 	free(heap->items);
 	free(heap);
 }
-

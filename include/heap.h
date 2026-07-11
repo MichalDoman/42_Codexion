@@ -34,11 +34,12 @@ t_heap	*heap_init(int max_size, int flag);
 int		heap_push(t_heap *heap, t_heap_item *a);
 int		heap_point_root(t_heap *heap, t_heap_item *ptr);
 int		heap_remove(t_heap *heap, t_heap_item *item);
-void	heap_free(t_heap *heap);
+int		heap_remove_by_id(t_heap *heap, int id);
 
-// core/heap/heap_utils.c [3/5]:
+// core/heap/heap_utils.c [4/5]:
 int		heap_compare(t_heap_item *a, t_heap_item *b, int flag);
 void	heap_swap(t_heap_item *a, t_heap_item *b);
 void	heap_branch_adjust(t_heap *heap, int flag);
+void	heap_free(t_heap *heap);
 
 #endif

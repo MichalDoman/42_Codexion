@@ -35,7 +35,7 @@ t_heap	*heap_init(int max_size, int flag)
 
 int	heap_point_root(t_heap *heap, t_heap_item *ptr)
 {
-	if (!heap || !ptr || heap->size = 0)
+	if (!heap || !ptr || heap->size == 0)
 		return (0);
 	*ptr = heap->items[0];
 	return (1);
@@ -77,11 +77,16 @@ int	heap_remove(t_heap *heap, t_heap_item *item)
 	return (1);
 }
 
-void	heap_free(t_heap *heap)
+int	heap_remove_by_id(t_heap *heap, int id)
 {
-	if (!heap)
-		return ;
-	free(heap->items);
-	free(heap);
-}
+	int i;
 
+	if (heap->size == 0)
+		return (0);
+	i = 0;
+	while (i < heap->size)
+	{
+		if (heap.items[i].id == id)
+
+	}
+}

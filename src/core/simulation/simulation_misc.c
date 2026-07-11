@@ -38,3 +38,19 @@ void	sim_log_burnout(t_sim *sim, int coder_id, char *msg)
 	}
 	pthread_mutex_unlock(&sim->log_mutex);
 }
+
+void	sim_broadcast_all(t_sim *sim)
+{
+	int			i;
+	t_dongle	&dongle;
+
+	i = 0;
+	while (i < sim->config.number_of_coders)
+	{
+		dongle = &sim->dongles[i];
+		pthread_mutex_lock(&dongle->mutex);
+		pthread_cond_broadcast(&dongle->cond);
+		pthread_mutex_unlock(&dongle->mutex);
+		i++;
+	}
+}

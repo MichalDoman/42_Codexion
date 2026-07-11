@@ -26,3 +26,11 @@ int coder_enqueue(t_dongle *dongle, t_coder *coder)
 	pthread_mutex_unlock(&dongle->mutex);
 	return (result);
 }
+
+int	coder_dequeue(t_dongle *dongle, t_coder *coder)
+{
+	pthread_mutex_lock(&dongle->mutex);
+	heap_remove_by_id(&dongle->queue, coder->id);
+	ptherad_cond_broadcast(&dongle->cond);
+	pthread_mutex_unlock(&dongle->mutex);
+}

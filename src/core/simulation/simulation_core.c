@@ -45,6 +45,7 @@ void	sim_stop(t_sim *sim)
 	pthread_mutex_lock(&sim->sim_mutex);
 	sim->is_running = 0;
 	pthread_mutex_unlock(&sim->sim_mutex);
+	sim_clear_queues(sim);
 }
 
 void	sim_cleanup(t_sim *sim)

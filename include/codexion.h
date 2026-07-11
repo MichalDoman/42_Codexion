@@ -43,9 +43,10 @@ void		sim_start(t_sim *sim);
 void		sim_stop(t_sim *sim);
 void		sim_cleanup(t_sim *sim);
 
-// src/core/simulation/simulation_misc.c [2/5]:
+// src/core/simulation/simulation_misc.c [3/5]:
 void		sim_log(t_sim *sim, int coder_id, char *msg);
 void		sim_log_burnout(t_sim *sim, int coder_id, char *msg);
+void		sim_broadcast_all(t_sim *sim);
 
 // src/core/threads.c [3/5]:
 void		thread_wait_for_sim_ready(t_sim *sim);
@@ -66,6 +67,7 @@ void		*coder_routine(void *arg);
 
 // src/core/coder/coder_queue.c [2/5]:
 void 		coder_enqueue(t_dongle *dongle, t_coder *coder);
+int			coder_dequeue(t_dongle *dongle, t_coder *coder);
 
 // src/core/coder/coder_misc.c [4/5]:
 void		coder_set_start_time_multi(t_sim *sim);

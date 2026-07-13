@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:13:40 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 15:38:43 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:44:35 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	dongle_is_available(t_dongle *dongle)
 
 static void	dongle_lock_wait(t_dongle *dongle)
 {
-	timespec_t	wait_timeout;
+	t_timespec	wait_timeout;
 	long		now;
 	long		cooldown_end;
 

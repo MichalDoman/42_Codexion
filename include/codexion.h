@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 15:38:14 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 17:23:21 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,5 @@ int			coder_has_required_compiles(t_coder *coder);
 long		time_get_ms(void);
 void		time_sleep(t_sim *sim, long duration);
 t_timespec	time_get_timespec(long timestamp);
-
-// UTILS ----------------------------------------------------------------------
-// utils/debugging:
-void		print_config(t_config *config);
-void		print_sim(t_sim *sim);
 
 #endif

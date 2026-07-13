@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:39:49 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:13:46 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:09 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <pthread.h>
 # include "heap.h"
 
-typedef struct timespec	timespec_t;
+typedef struct timespec	t_timespec;
 typedef struct s_sim	t_sim;
 
 typedef struct s_config

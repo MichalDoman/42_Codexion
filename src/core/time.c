@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:56:56 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:19:57 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:21 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	time_sleep(t_sim *sim, long duration)
 		usleep(500);
 }
 
-timespec_t	time_get_timespec(long timestamp)
+t_timespec	time_get_timespec(long timestamp)
 {
-	timespec_t	timespec;
+	t_timespec	timespec;
 
 	timespec.tv_sec = timestamp / 1000;
 	timespec.tv_nsec = timestamp % 1000 * 1000000;

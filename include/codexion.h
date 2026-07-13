@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 14:53:40 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:14 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,10 @@ void		dongle_destroy_multi(t_dongle **dongles, int count);
 void		*coder_routine(void *arg);
 
 // src/core/coder/coder_queue.c [2/5]:
-int 		coder_enqueue(t_dongle *dongle, t_coder *coder);
+int			coder_enqueue(t_dongle *dongle, t_coder *coder);
 void		coder_dequeue(t_dongle *dongle, int coder_id);
-int			coder_enqueue_pair(t_dongle *d1, t_dongle *d2, t_coder *coder);
 
-// src/core/coder/coder_misc.c [4/5]:
+// src/core/coder/coder_misc.c [5/5]:
 void		coder_set_start_time_multi(t_sim *sim);
 int			coder_lock_dongles(t_coder *coder);
 void		coder_unlock_dongles(t_coder *coder);
@@ -79,7 +78,7 @@ int			coder_has_required_compiles(t_coder *coder);
 // src/core/time.c [3/5]:
 long		time_get_ms(void);
 void		time_sleep(t_sim *sim, long duration);
-timespec_t	time_get_timespec(long timestamp);
+t_timespec	time_get_timespec(long timestamp);
 
 // UTILS ----------------------------------------------------------------------
 // utils/debugging:

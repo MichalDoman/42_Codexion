@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:27 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 10:54:12 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:39:58 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	heap_compare(t_heap *heap, int id_1, int id_2)
 {
 	t_heap_item	*a;
-	t_heap_item *b;
+	t_heap_item	*b;
 
 	a = &(heap->items[id_1]);
 	b = &(heap->items[id_2]);
@@ -37,9 +37,9 @@ void	heap_swap(t_heap_item *a, t_heap_item *b)
 
 void	heap_adjust_up(t_heap *heap, int current_id)
 {
-	int parent_id;
+	int	parent_id;
 
-	while(current_id > 0)
+	while (current_id > 0)
 	{
 		parent_id = (current_id - 1) / 2;
 		if (parent_id == current_id)

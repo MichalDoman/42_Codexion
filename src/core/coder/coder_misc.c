@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 18:36:14 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 14:53:37 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:37:02 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,31 @@ void	coder_set_start_time_multi(t_sim *sim)
 	pthread_mutex_unlock(&sim->sim_mutex);
 }
 
+static int	lock_dongles_helper(t_dongle *d1, t_dongle *d2, t_coder *coder)
+{
+	if (!coder_enqueue(d1, coder))
+		return (0);
+	if (!coder_enqueue(d2, coder))
+	{
+		coder_dequeue(d1, coder->id);
+		return (0);
+	}
+	if (!dongle_lock(d1, coder->sim, coder->id))
+	{
+		coder_dequeue(d1, coder->id);
+		coder_dequeue(d2, coder->id);
+		return (0);
+	}
+	if (!dongle_lock(d2, coder->sim, coder->id))
+	{
+		coder_dequeue(d1, coder->id);
+		coder_dequeue(d2, coder->id);
+		dongle_unlock(d1, 0);
+		return (0);
+	}
+	return (1);
+}
+
 int	coder_lock_dongles(t_coder *coder)
 {
 	t_dongle	*first_dongle;
@@ -38,9 +63,7 @@ int	coder_lock_dongles(t_coder *coder)
 		first_dongle = coder->left_dongle;
 		second_dongle = coder->right_dongle;
 	}
-	if (!coder_enqueue_pair(first_dongle, second_dongle, coder))
-		return (0);
-	return (1);
+	return (lock_dongles_helper(first_dongle, second_dongle, coder));
 }
 
 void	coder_unlock_dongles(t_coder *coder)

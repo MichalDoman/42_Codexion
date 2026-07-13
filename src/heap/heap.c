@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 10:03:31 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 11:08:27 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:39:16 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	heap_remove(t_heap *heap)
 
 int	heap_remove_by_id(t_heap *heap, int id)
 {
-	int i;
+	int	i;
 	int	parent_id;
 
 	if (heap->size == 0)

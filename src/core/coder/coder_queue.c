@@ -6,20 +6,20 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 10:10:22 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 14:53:44 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:55 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int coder_enqueue(t_dongle *dongle, t_coder *coder)
+int	coder_enqueue(t_dongle *dongle, t_coder *coder)
 {
 	t_heap_item	item;
 	long		last_compile_start;
 	long		time_to_burnout;
 	long		priority;
 	int			result;
-	
+
 	pthread_mutex_lock(&coder->sim->sim_mutex);
 	last_compile_start = coder->last_compile_start;
 	pthread_mutex_unlock(&coder->sim->sim_mutex);
@@ -45,29 +45,4 @@ void	coder_dequeue(t_dongle *dongle, int coder_id)
 	heap_remove_by_id(dongle->queue, coder_id);
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
-}
-
-int	coder_enqueue_pair(t_dongle *d1, t_dongle *d2, t_coder *coder)
-{
-	if (!coder_enqueue(d1, coder))
-		return (0);
-	if (!coder_enqueue(d2, coder))
-	{
-		coder_dequeue(d1, coder->id);
-		return (0);
-	}
-	if (!dongle_lock(d1, coder->sim, coder->id))
-	{
-		coder_dequeue(d1, coder->id);
-		coder_dequeue(d2, coder->id);
-		return (0);
-	}
-	if (!dongle_lock(d2, coder->sim, coder->id))
-	{
-		coder_dequeue(d1, coder->id);
-		coder_dequeue(d2, coder->id);
-		dongle_unlock(d1, 0);
-		return (0);
-	}
-	return (1);
 }

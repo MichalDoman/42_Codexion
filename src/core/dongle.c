@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 14:13:40 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:22:32 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 15:38:43 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id)
 	pthread_mutex_lock(&dongle->mutex);
 	while (sim_is_running(sim))
 	{
-		
 		if (dongle_is_available(dongle)
 			&& heap_point_root(dongle->queue, &first)
 			&& first.id == coder_id)

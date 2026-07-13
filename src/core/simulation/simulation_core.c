@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 15:44:07 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 13:28:45 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:48:09 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	sim_stop(t_sim *sim)
 	pthread_mutex_lock(&sim->sim_mutex);
 	sim->is_running = 0;
 	pthread_mutex_unlock(&sim->sim_mutex);
-	sim_clear_queues(sim);
+	sim_broadcast_all(sim);
 }
 
 void	sim_cleanup(t_sim *sim)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coder_queue.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/13 10:10:22 by mdomansk          #+#    #+#             */
+/*   Updated: 2026/07/13 10:49:12 by mdomansk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "codexion.h"
 
 int coder_enqueue(t_dongle *dongle, t_coder *coder)
@@ -27,10 +39,10 @@ int coder_enqueue(t_dongle *dongle, t_coder *coder)
 	return (result);
 }
 
-int	coder_dequeue(t_dongle *dongle, t_coder *coder)
+void	coder_dequeue(t_dongle *dongle, t_coder *coder)
 {
 	pthread_mutex_lock(&dongle->mutex);
-	heap_remove_by_id(&dongle->queue, coder->id);
-	ptherad_cond_broadcast(&dongle->cond);
+	heap_remove_by_id(dongle->queue, coder->id);
+	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
 }

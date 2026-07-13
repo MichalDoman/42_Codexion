@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 13:46:37 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 12:01:13 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:48:27 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	sim_log_burnout(t_sim *sim, int coder_id, char *msg)
 void	sim_broadcast_all(t_sim *sim)
 {
 	int			i;
-	t_dongle	&dongle;
+	t_dongle	*dongle;
 
 	i = 0;
 	while (i < sim->config.number_of_coders)

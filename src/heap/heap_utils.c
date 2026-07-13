@@ -6,17 +6,22 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 09:58:27 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 10:28:21 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:53:36 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heap.h"
 
-int	heap_compare(t_heap_item *a, t_heap_item *b, int flag)
+int	heap_compare(t_heap *heap, int id_1, int id_2)
 {
+	t_heap_item	*a;
+	t_heap_item *b;
+
+	a = &(heap->items[id_1]);
+	b = &(heap->items[id_2]);
 	if (a->value == b->value)
 		return (a->id < b->id);
-	if (flag == 1)
+	if (heap->flag == 1)
 		return (a->value > b->value);
 	return (a->value < b->value);
 }
@@ -30,29 +35,41 @@ void	heap_swap(t_heap_item *a, t_heap_item *b)
 	*b = tmp;
 }
 
-void	heap_branch_adjust(t_heap *heap, int flag)
+void	heap_adjust_up(t_heap *heap, int current_id)
 {
-	int	current_i;
-	int	left_i;
-	int	right_i;
-	int	best_i;
+	int parent_id;
 
-	current_i = 0;
+	while(current_id > 0)
+	{
+		parent_id = (current_id - 1) / 2;
+		if (parent_id == current_id)
+			break ;
+		if (heap_compare(heap, parent_id, current_id))
+			break ;
+		heap_swap(&heap->items[current_id], &heap->items[parent_id]);
+		current_id = parent_id;
+	}
+}
+
+void	heap_adjust_down(t_heap *heap, int current_id)
+{
+	int	left_id;
+	int	right_id;
+	int	best_id;
+
 	while (1)
 	{
-		left_i = current_i * 2 + 1;
-		right_i = current_i * 2 + 2;
-		best_i = current_i;
-		if (left_i < heap->size
-			&& heap_compare(&heap->items[left_i], &heap->items[best_i], flag))
-			best_i = left_i;
-		if (right_i < heap->size
-			&& heap_compare(&heap->items[right_i], &heap->items[best_i], flag))
-			best_i = right_i;
-		if (best_i == current_i)
+		left_id = current_id * 2 + 1;
+		right_id = current_id * 2 + 2;
+		best_id = current_id;
+		if (left_id < heap->size && heap_compare(heap, left_id, best_id))
+			best_id = left_id;
+		if (right_id < heap->size && heap_compare(heap, right_id, best_id))
+			best_id = right_id;
+		if (best_id == current_id)
 			break ;
-		heap_swap(&heap->items[current_i], &heap->items[best_i]);
-		current_i = best_i;
+		heap_swap(&heap->items[current_id], &heap->items[best_id]);
+		current_id = best_id;
 	}
 }
 

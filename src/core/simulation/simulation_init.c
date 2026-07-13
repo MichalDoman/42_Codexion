@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:33:42 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:28:16 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:47:42 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	init_dongles(t_dongle **dongles, int number_of_dongles)
 	i = 0;
 	while (i < number_of_dongles)
 	{
-		if (!init_dongle(&(*dongles)[i], i + 1, scheduler))
+		if (!init_dongle(&(*dongles)[i], i + 1))
 			return (dongle_destroy_multi(dongles, i), 0);
 		i++;
 	}

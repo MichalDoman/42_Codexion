@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/01 10:04:10 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 10:27:37 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:37:26 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ typedef struct s_heap
 t_heap	*heap_init(int max_size, int flag);
 int		heap_push(t_heap *heap, t_heap_item *a);
 int		heap_point_root(t_heap *heap, t_heap_item *ptr);
-int		heap_remove(t_heap *heap, t_heap_item *item);
+int		heap_remove(t_heap *heap);
 int		heap_remove_by_id(t_heap *heap, int id);
 
-// core/heap/heap_utils.c [4/5]:
-int		heap_compare(t_heap_item *a, t_heap_item *b, int flag);
+// core/heap/heap_utils.c [5/5]:
+int		heap_compare(t_heap *heap, int id_1, int id_2);
 void	heap_swap(t_heap_item *a, t_heap_item *b);
-void	heap_branch_adjust(t_heap *heap, int flag);
+void	heap_adjust_up(t_heap *heap, int current_id);
+void	heap_adjust_down(t_heap *heap, int current_id);
 void	heap_free(t_heap *heap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 10:38:32 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:38:09 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 10:49:40 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void		dongle_destroy_multi(t_dongle **dongles, int count);
 void		*coder_routine(void *arg);
 
 // src/core/coder/coder_queue.c [2/5]:
-void 		coder_enqueue(t_dongle *dongle, t_coder *coder);
-int			coder_dequeue(t_dongle *dongle, t_coder *coder);
+int 		coder_enqueue(t_dongle *dongle, t_coder *coder);
+void		coder_dequeue(t_dongle *dongle, t_coder *coder);
 
 // src/core/coder/coder_misc.c [4/5]:
 void		coder_set_start_time_multi(t_sim *sim);

@@ -17,8 +17,6 @@ SRC =	main.c \
 		src/core/time.c \
 		src/heap/heap.c \
 		src/heap/heap_utils.c \
-		utils/debugging/print_config.c \
-		utils/debugging/print_sim.c \
 
 OBJ = $(SRC:.c=.o)
 

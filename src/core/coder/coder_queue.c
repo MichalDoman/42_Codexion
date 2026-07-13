@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 10:10:22 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 10:49:12 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:53:44 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,35 @@ int coder_enqueue(t_dongle *dongle, t_coder *coder)
 	return (result);
 }
 
-void	coder_dequeue(t_dongle *dongle, t_coder *coder)
+void	coder_dequeue(t_dongle *dongle, int coder_id)
 {
 	pthread_mutex_lock(&dongle->mutex);
-	heap_remove_by_id(dongle->queue, coder->id);
+	heap_remove_by_id(dongle->queue, coder_id);
 	pthread_cond_broadcast(&dongle->cond);
 	pthread_mutex_unlock(&dongle->mutex);
+}
+
+int	coder_enqueue_pair(t_dongle *d1, t_dongle *d2, t_coder *coder)
+{
+	if (!coder_enqueue(d1, coder))
+		return (0);
+	if (!coder_enqueue(d2, coder))
+	{
+		coder_dequeue(d1, coder->id);
+		return (0);
+	}
+	if (!dongle_lock(d1, coder->sim, coder->id))
+	{
+		coder_dequeue(d1, coder->id);
+		coder_dequeue(d2, coder->id);
+		return (0);
+	}
+	if (!dongle_lock(d2, coder->sim, coder->id))
+	{
+		coder_dequeue(d1, coder->id);
+		coder_dequeue(d2, coder->id);
+		dongle_unlock(d1, 0);
+		return (0);
+	}
+	return (1);
 }

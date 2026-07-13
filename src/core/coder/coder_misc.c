@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/08 18:36:14 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/08 20:14:22 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:53:37 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,8 @@ int	coder_lock_dongles(t_coder *coder)
 		first_dongle = coder->left_dongle;
 		second_dongle = coder->right_dongle;
 	}
-	coder_enqueue(first_dongle, coder);
-	coder_enqueue(second_dongle, coder);
-	if (!dongle_lock(first_dongle, coder->sim, coder->id))
+	if (!coder_enqueue_pair(first_dongle, second_dongle, coder))
 		return (0);
-	if (!dongle_lock(second_dongle, coder->sim, coder->id))
-		return (dongle_unlock(first_dongle, 0), 0);
 	return (1);
 }
 

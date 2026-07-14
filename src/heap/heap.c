@@ -60,7 +60,7 @@ int	heap_remove(t_heap *heap)
 		return (0);
 	heap->size--;
 	if (heap->size == 0)
-		return (0);
+		return (1);
 	heap->items[0] = heap->items[heap->size];
 	heap_adjust_down(heap, 0);
 	return (1);
@@ -71,24 +71,22 @@ int	heap_remove_by_id(t_heap *heap, int id)
 	int	i;
 	int	parent_id;
 
-	if (heap->size == 0)
+	if (!heap || heap->size == 0)
 		return (0);
 	i = 0;
-	while (i < heap->size)
+	while (i < heap->size && heap->items[i].id != id)
+		i++;
+	if (i == heap->size)
+		return (0);
+	heap->size--;
+	if (i == heap->size)
+		return (1);
+	heap->items[i] = heap->items[heap->size];
+	if (i > 0)
 	{
-		if (heap->items[i].id == id)
-		{
-			heap->size--;
-			if (heap->size == 0)
-				return (0);
-			heap->items[i] = heap->items[heap->size];
-			parent_id = (i - 1) / 2;
-			if (heap_compare(heap, i, parent_id))
-				heap_adjust_up(heap, i);
-			else
-				heap_adjust_down(heap, i);
-			break ;
-		}
+		parent_id = (i - 1) / 2;
+		if (heap_compare(heap, i, parent_id))
+			return (heap_adjust_up(heap, i), 1);
 	}
-	return (1);
+	return (heap_adjust_down(heap, i), 1);
 }

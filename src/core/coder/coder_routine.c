@@ -18,19 +18,22 @@ static int	coder_compile(t_coder *coder)
 	long	time_to_compile;
 
 	sim = coder->sim;
-	time_to_compile = coder->sim->config.time_to_compile;
+	time_to_compile = sim->config.time_to_compile;
 	if (!coder_lock_dongles(coder))
 		return (0);
 	pthread_mutex_lock(&sim->sim_mutex);
 	coder->last_compile_start = time_get_ms();
 	pthread_mutex_unlock(&sim->sim_mutex);
 	sim_log(sim, coder->id, "is compiling");
-	time_sleep(coder->sim, time_to_compile);
-	pthread_mutex_lock(&sim->sim_mutex);
-	coder->compile_count++;
-	pthread_mutex_unlock(&sim->sim_mutex);
+	time_sleep(sim, time_to_compile);
+	if (sim_is_running(sim))
+	{
+		pthread_mutex_lock(&sim->sim_mutex);
+		coder->compile_count++;
+		pthread_mutex_unlock(&sim->sim_mutex);
+	}
 	coder_unlock_dongles(coder);
-	return (1);
+	return (sim_is_running(sim));
 }
 
 static void	coder_debug(t_coder *coder)

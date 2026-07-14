@@ -12,7 +12,7 @@
 
 #include "codexion.h"
 
-int	dongle_is_available(t_dongle *dongle)
+static int	dongle_is_available(t_dongle *dongle)
 {
 	if (dongle->coder_id != 0)
 		return (0);

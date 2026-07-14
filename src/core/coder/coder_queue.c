@@ -25,7 +25,6 @@ int	coder_enqueue(t_dongle *dongle, t_coder *coder)
 	pthread_mutex_unlock(&coder->sim->sim_mutex);
 	time_to_burnout = coder->sim->config.time_to_burnout;
 	pthread_mutex_lock(&dongle->mutex);
-	priority = coder->id;
 	if (strcmp(coder->sim->config.scheduler, "fifo") == 0)
 		priority = dongle->queue_order;
 	else if (strcmp(coder->sim->config.scheduler, "edf") == 0)

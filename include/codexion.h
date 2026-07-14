@@ -57,7 +57,6 @@ void		thread_join_multi(t_sim *sim);
 void		*monitor_routine(void *arg);
 
 // src/core/dongle.c [5/5]:
-int			dongle_is_available(t_dongle *dongle);
 int			dongle_lock(t_dongle *dongle, t_sim *sim, int coder_id);
 void		dongle_unlock(t_dongle *dongle, long cooldown);
 void		dongle_destroy_multi(t_dongle **dongles, int count);

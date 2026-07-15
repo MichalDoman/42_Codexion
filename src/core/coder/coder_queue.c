@@ -6,7 +6,7 @@
 /*   By: mdomansk <mdomansk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 10:10:22 by mdomansk          #+#    #+#             */
-/*   Updated: 2026/07/13 15:41:28 by mdomansk         ###   ########.fr       */
+/*   Updated: 2026/07/15 14:36:48 by mdomansk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	coder_enqueue(t_dongle *dongle, t_coder *coder)
 	pthread_mutex_unlock(&coder->sim->sim_mutex);
 	time_to_burnout = coder->sim->config.time_to_burnout;
 	pthread_mutex_lock(&dongle->mutex);
+	priority = coder->id;
 	if (strcmp(coder->sim->config.scheduler, "fifo") == 0)
 		priority = dongle->queue_order;
 	else if (strcmp(coder->sim->config.scheduler, "edf") == 0)
